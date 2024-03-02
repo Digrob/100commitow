@@ -1,8 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+﻿using _100commitow.src;
+using _100commitow.src.GameStuff;
+using _100commitow.src.Inputs;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using src.GameStuff;
 
-namespace _100commitow
+namespace src
 {
     public class Game1 : Game
     {
@@ -18,24 +22,23 @@ namespace _100commitow
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             base.Initialize();
+            WorldManager.world = new World();
         }
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
+            Globals.graphicsDevice = GraphicsDevice;
+            Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
+            Globals.content = Content;
+            Textures.Load();
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
-            // TODO: Add your update logic here
+            KeyboardManager.Update();
+            MouseManager.Update();
+            WorldManager.world.Update();
 
             base.Update(gameTime);
         }
@@ -43,8 +46,9 @@ namespace _100commitow
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
+            Globals.spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
+            WorldManager.world.Draw();
+            Globals.spriteBatch.End();
 
             base.Draw(gameTime);
         }
