@@ -14,5 +14,7 @@ namespace src
         public static GraphicsDevice graphicsDevice;
         public static SpriteBatch spriteBatch;
         public static ContentManager content;
+        public static GameWindow window;
+        public static Rectangle windowBounds;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using src;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,14 +24,21 @@ namespace _100commitow.src.Inputs
             state = Mouse.GetState();
         }
 
+        public static bool IsCursorInsideTheGame()
+        {
+            int mouseX = state.X;
+            int mouseY = state.Y;
+            return Globals.windowBounds.Contains(mouseX, mouseY);
+        }
+
         public static bool LeftPressed()
         {
-            return state.LeftButton == ButtonState.Pressed && state != prevState;
+            return IsCursorInsideTheGame() && state.LeftButton == ButtonState.Pressed && prevState.LeftButton != ButtonState.Pressed;
         }
 
         public static bool LeftDown()
         {
-            return state.LeftButton == ButtonState.Pressed && state == prevState;
+            return IsCursorInsideTheGame() && state.LeftButton == ButtonState.Pressed && prevState.LeftButton == ButtonState.Pressed;
         }
 
         public static Vector2 GetPosition()

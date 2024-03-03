@@ -1,11 +1,11 @@
-﻿using _100commitow.src.GameStuff;
+﻿using src.GameStuff.LivingStuff;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace src.GameStuff
+namespace src.GameStuff.Places
 {
     public class World
     {
@@ -33,7 +33,7 @@ namespace src.GameStuff
         public virtual void Update()
         {
             List<Entity> temp_list = new List<Entity>(entities);
-            foreach(Entity entity in temp_list)
+            foreach (Entity entity in temp_list)
             {
                 entity.Update();
             }

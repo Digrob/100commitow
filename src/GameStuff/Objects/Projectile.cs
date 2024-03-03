@@ -1,12 +1,13 @@
-﻿using Microsoft.Xna.Framework;
-using src.GameStuff;
+﻿using _100commitow.src;
+using Microsoft.Xna.Framework;
+using src.GameStuff.LivingStuff;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _100commitow.src.GameStuff
+namespace src.GameStuff.Objects
 {
     public class Projectile : Entity
     {
