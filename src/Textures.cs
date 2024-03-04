@@ -12,6 +12,7 @@ namespace _100commitow.src
     public class Textures
     {
         public static Dictionary<string, Texture2D> textures;
+        public static SpriteFont font;
         
         public static void Load()
         {
@@ -20,6 +21,7 @@ namespace _100commitow.src
                 { "character", Globals.content.Load<Texture2D>("character_placeholder") },
                 { "projectile", Globals.content.Load<Texture2D>("test_projectile") }
             };
+            font = Globals.content.Load<SpriteFont>("File");
         }
 
         public static Texture2D Get(string key)

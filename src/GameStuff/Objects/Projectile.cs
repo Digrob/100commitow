@@ -20,6 +20,7 @@ namespace src.GameStuff.Objects
             texture = Textures.Get("projectile");
             direction = Vector2.Zero;
             speed = 1f;
+            hitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
         }
 
         public Projectile(Vector2 direction) : base()
@@ -45,7 +46,9 @@ namespace src.GameStuff.Objects
 
         public override void Update()
         {
+            base.Update();
             position += direction * speed;
+            
         }
     }
 }

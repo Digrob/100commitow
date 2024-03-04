@@ -21,10 +21,12 @@ namespace src.GameStuff.LivingStuff
         {
             texture = Textures.Get("character");
             weapon = new ProjectileThrower(this);
+            isAlive = true;
         }
 
         public override void Update()
         {
+            base.Update();
             weapon?.Update(this);
             center = new Vector2(position.X+texture.Width/4, position.Y+texture.Height/4);
             if (KeyboardManager.Down(Keys.W))

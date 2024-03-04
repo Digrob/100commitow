@@ -18,12 +18,11 @@ namespace src.GameStuff.Objects
             this.parent = parent;
             projectile = new Projectile();
         }
-
         public override void Shoot()
         {
             Projectile newProjectile = projectile.Clone() as Projectile;
-            newProjectile.position = parent.center;
             newProjectile.direction = Vector2.Normalize(MouseManager.GetPosition() - parent.center);
+            newProjectile.position = parent.center;
             newProjectile.parent = parent;
             WorldManager.world.AddEntity(newProjectile);
         }
