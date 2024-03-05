@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace src.GameStuff.LivingStuff
 {
+    /// <summary>
+    /// Any object in the game, either alive or not
+    /// </summary>
     public class Entity : ICloneable
     {
         public World world;

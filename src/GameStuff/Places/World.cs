@@ -1,5 +1,6 @@
 ﻿using _100commitow.src;
 using _100commitow.src.GameStuff;
+using _100commitow.src.GameStuff.Blocks;
 using _100commitow.src.GameStuff.LivingStuff;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -29,7 +30,8 @@ namespace src.GameStuff.Places
             random = new Random();
             entities = new List<Entity>()
             {
-                new Player(new Microsoft.Xna.Framework.Vector2(0, 0))
+                new Player(new Microsoft.Xna.Framework.Vector2(0, 0)),
+                new Wall(new Vector2(400, 200))
             };
             entities.ForEach(x => quadtree.Insert(x));
         }
@@ -77,13 +79,11 @@ namespace src.GameStuff.Places
             {
                 foreach (Entity another_entity in temp_list)
                 {
-                    if (!(entity is Player) && !(another_entity is Player) && entity != another_entity && entity.hitbox.Intersects(another_entity.hitbox))
+                    if (entity == another_entity) continue;
+                    if (entity is Enemy && another_entity is Projectile && entity.hitbox.Intersects(another_entity.hitbox))
                     {
-                        if (entity is Enemy && another_entity is Projectile)
-                        {
-                            RemoveEntity(another_entity);
-                            RemoveEntity(entity);
-                        }
+                        RemoveEntity(another_entity);
+                        RemoveEntity(entity);
                     }
                 }
             }

@@ -19,7 +19,8 @@ namespace _100commitow.src
             textures = new Dictionary<string, Texture2D>
             {
                 { "character", Globals.content.Load<Texture2D>("character_placeholder") },
-                { "projectile", Globals.content.Load<Texture2D>("test_projectile") }
+                { "projectile", Globals.content.Load<Texture2D>("test_projectile") },
+                { "wall", Globals.content.Load<Texture2D>("wall") }
             };
             font = Globals.content.Load<SpriteFont>("File");
         }

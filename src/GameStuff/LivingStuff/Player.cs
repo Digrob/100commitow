@@ -14,14 +14,18 @@ using System.Threading.Tasks;
 
 namespace src.GameStuff.LivingStuff
 {
-    internal class Player : Entity
+    public class Player : Entity
     {
         public Weapon weapon;
+        public float speed;
+        public Vector2 velocity;
         public Player(Vector2 position) : base(position)
         {
             texture = Textures.Get("character");
             weapon = new ProjectileThrower(this);
             isAlive = true;
+            speed = 3;
+            velocity = Vector2.Zero;
         }
 
         public override void Update()
@@ -29,27 +33,27 @@ namespace src.GameStuff.LivingStuff
             base.Update();
             weapon?.Update(this);
             center = new Vector2(position.X+texture.Width/4, position.Y+texture.Height/4);
-            if (KeyboardManager.Down(Keys.W))
+            Move();
+            position += velocity;
+            velocity = Vector2.Zero;
+        }
+        private void Move()
+        {
+            if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
-                position.Y -= 3;
-            }
-            if (KeyboardManager.Down(Keys.S))
-            {
-                position.Y += 3;
-            }
-            if (KeyboardManager.Down(Keys.A))
-            {
-                position.X -= 3;
+                velocity.X = -speed;
                 spriteEffect = SpriteEffects.FlipHorizontally;
             }
-            if (KeyboardManager.Down(Keys.D))
+            else if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
-                position.X += 3;
+                velocity.X = speed;
                 spriteEffect = SpriteEffects.None;
             }
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
-            {
-            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.W))
+                velocity.Y = -speed;
+            else if (Keyboard.GetState().IsKeyDown(Keys.S))
+                velocity.Y = speed;
         }
     }
 }
