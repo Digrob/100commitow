@@ -1,4 +1,5 @@
 ﻿using _100commitow.src;
+using _100commitow.src.GameStuff.Blocks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using src.GameStuff.Places;
@@ -18,6 +19,7 @@ namespace src.GameStuff.LivingStuff
         public World world;
         public Vector2 position;
         public Vector2 origin;
+        public Vector2 velocity;
         public SpriteEffects spriteEffect;
         public int rotation;
         public Vector2 scale;
@@ -72,6 +74,20 @@ namespace src.GameStuff.LivingStuff
         {
             hitbox.X = (int)position.X;
             hitbox.Y = (int)position.Y;
+            foreach (var entity in WorldManager.world.entities)
+            {
+                if (entity != this && entity is Wall)
+                {
+                    Wall wall = entity as Wall;
+                    if ((velocity.X > 0 && wall.IsTouchingLeft(this)) ||
+                        (velocity.X < 0 && wall.IsTouchingRight(this)))
+                        velocity.X = 0;
+
+                    if ((velocity.Y > 0 && wall.IsTouchingTop(this)) ||
+                        (velocity.Y < 0 && wall.IsTouchingBottom(this)))
+                        velocity.Y = 0;
+                }
+            }
         }
 
         public virtual void Draw()

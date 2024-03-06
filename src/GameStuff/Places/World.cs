@@ -67,7 +67,7 @@ namespace src.GameStuff.Places
         {
             if(HowManyEntities(typeof(Enemy)) < 1)
             {
-                entities.Add(new Enemy(new Microsoft.Xna.Framework.Vector2(100, 100)));
+                entities.Add(new Enemy(new Vector2(100, 100)));
             }
             List<Entity> temp_list = new List<Entity>(entities);
             foreach (Entity entity in temp_list)
