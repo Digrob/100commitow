@@ -14,13 +14,14 @@ namespace src.GameStuff.Objects
         public Entity parent;
         public Vector2 direction;
         public float speed;
-
+        public float damage;
         public Projectile() : base()
         {
             texture = Textures.Get("projectile");
             direction = Vector2.Zero;
             speed = 1f;
             hitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
+            damage = 2f;
         }
 
         public Projectile(Vector2 direction) : base()

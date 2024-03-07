@@ -32,7 +32,9 @@ namespace src.GameStuff.LivingStuff
             cancelMovementX = false;
             cancelMovementY = false;
             hitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
-    }
+            health = 100f;
+            maxHealth = health;
+        }
 
         public override void Update()
         {

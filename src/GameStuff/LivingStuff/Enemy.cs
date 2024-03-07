@@ -22,6 +22,8 @@ namespace _100commitow.src.GameStuff.LivingStuff
             direction = Vector2.Zero;
             isAlive = true;
             hitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
+            health = 10;
+            maxHealth = health;
         }
 
         public override void Update()

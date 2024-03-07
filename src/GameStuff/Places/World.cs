@@ -77,13 +77,18 @@ namespace src.GameStuff.Places
             //basic collision system, add quad tree later
             foreach (Entity entity in temp_list)
             {
+                if (entity.queuedForDeath)
+                {
+                    RemoveEntity(entity);
+                    break;
+                }
                 foreach (Entity another_entity in temp_list)
                 {
                     if (entity == another_entity) continue;
                     if (entity is Enemy && another_entity is Projectile && entity.hitbox.Intersects(another_entity.hitbox))
                     {
+                        entity.Damage(another_entity as Projectile);
                         RemoveEntity(another_entity);
-                        RemoveEntity(entity);
                     }
                 }
             }
