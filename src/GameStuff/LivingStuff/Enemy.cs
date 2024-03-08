@@ -24,6 +24,7 @@ namespace _100commitow.src.GameStuff.LivingStuff
             hitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
             health = 10;
             maxHealth = health;
+            speed = 1;
         }
 
         public override void Update()
@@ -33,7 +34,7 @@ namespace _100commitow.src.GameStuff.LivingStuff
             if (player == null)
                 return;
             direction = Vector2.Normalize(player.position - position);
-            position += direction;
+            position += direction * speed;
         }
     }
 }

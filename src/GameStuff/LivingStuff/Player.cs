@@ -19,7 +19,6 @@ namespace src.GameStuff.LivingStuff
     public class Player : Entity
     {
         public Weapon weapon;
-        public float speed;
         public bool cancelMovementX;
         public bool cancelMovementY;
         public Player(Vector2 position) : base(position)
@@ -27,13 +26,13 @@ namespace src.GameStuff.LivingStuff
             texture = Textures.Get("character");
             weapon = new ProjectileThrower(this);
             isAlive = true;
-            speed = 3;
             velocity = Vector2.Zero;
             cancelMovementX = false;
             cancelMovementY = false;
             hitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
             health = 100f;
             maxHealth = health;
+            speed = 3;
         }
 
         public override void Update()

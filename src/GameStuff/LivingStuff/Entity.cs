@@ -1,4 +1,5 @@
 ﻿using _100commitow.src;
+using _100commitow.src.GameStuff;
 using _100commitow.src.GameStuff.Blocks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -6,6 +7,7 @@ using src.GameStuff.Objects;
 using src.GameStuff.Places;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,11 +35,16 @@ namespace src.GameStuff.LivingStuff
         public float health;
         public float maxHealth;
         public bool queuedForDeath;
+        public StatusEffects statusEffect;
+        public bool immobilized;
+        public float speed;
         
         private Rectangle red_rect;
         private Rectangle green_rect;
         private Texture2D red_rect_texture;
         private Texture2D green_rect_texture;
+        private float statusEffectTimer;
+        private Color healthBarColor;
 
         public Entity()
         {
@@ -60,6 +67,11 @@ namespace src.GameStuff.LivingStuff
             green_rect_texture.SetData(new Color[] { Color.Green });
             red_rect = new Rectangle((int)position.X, (int)position.Y, 50, 10);
             green_rect = new Rectangle((int)position.X, (int)position.Y, 50, 10);
+            statusEffect = StatusEffects.None;
+            statusEffectTimer = 0f;
+            healthBarColor = Color.Green;
+            immobilized = false;
+            speed = 1;
         }
         public Entity(Vector2 position)
         {
@@ -82,6 +94,11 @@ namespace src.GameStuff.LivingStuff
             green_rect_texture.SetData(new Color[] { Color.Green });
             red_rect = new Rectangle((int)position.X, (int)position.Y, 50, 10);
             green_rect = new Rectangle((int)position.X, (int)position.Y, 50, 10);
+            statusEffect = StatusEffects.None;
+            statusEffectTimer = 0f;
+            healthBarColor = Color.Green;
+            immobilized = false;
+            speed = 1;
         }
         public Entity(string texture, Vector2 position)
         {
@@ -105,21 +122,42 @@ namespace src.GameStuff.LivingStuff
             green_rect_texture.SetData(new Color[] { Color.Green });
             red_rect = new Rectangle((int)position.X, (int)position.Y, 50, 10);
             green_rect = new Rectangle((int)position.X, (int)position.Y, 50, 10);
+            statusEffect = StatusEffects.None;
+            statusEffectTimer = 0f;
+            healthBarColor = Color.Green;
+            immobilized = false;
+            speed = 1;
         }
 
         public void Damage(Projectile projectile)
         {
             float health_after_damage = health - projectile.damage;
-            if (isAlive && health_after_damage <= 0)
-                queuedForDeath = true;
+            statusEffect = projectile.statusEffect;
+            if (statusEffect != StatusEffects.None)
+            {
+                statusEffectTimer = 10f;
+                if(statusEffect == StatusEffects.Poisoned)
+                {
+                    SetHealthBarColor(Color.DarkGreen);
+                }
+                else if(statusEffect == StatusEffects.Frozen)
+                {
+                    SetHealthBarColor(Color.LightBlue);
+                }
+            }
             else
-                health = health_after_damage;
+            {
+                SetHealthBarColor(Color.Green);
+            }
+            health = health_after_damage;
         }
 
         public virtual void Update()
         {
             hitbox.X = (int)position.X;
             hitbox.Y = (int)position.Y;
+            if (isAlive && health <= 0)
+                queuedForDeath = true;
             foreach (var entity in WorldManager.world.entities)
             {
                 if (entity != this && entity is Wall)
@@ -136,16 +174,54 @@ namespace src.GameStuff.LivingStuff
             }
             if (isAlive)
             {
-                red_rect.X = (int)position.X - 10;
-                red_rect.Y = (int)position.Y - 15;
-                green_rect.X = (int)position.X - 10;
-                green_rect.Y = (int)position.Y - 15;
-                health = MathHelper.Clamp(health, 0, maxHealth);
-                float greenWidth = 50 * (health / maxHealth);
-                green_rect.Width = (int)greenWidth;
+                StatusEffectChecks();
+                UpdateHealthBar();
+            }
+        }
+        private void StatusEffectChecks()
+        {
+            if (statusEffect != StatusEffects.None)
+            {
+                statusEffectTimer = MathHelper.Lerp(statusEffectTimer, 0, 0.1f);
+                if (statusEffectTimer <= 0.0001)
+                {
+                    statusEffectTimer = 0;
+                    statusEffect = StatusEffects.None;
+                    return;
+                }
+
+                if (statusEffect == StatusEffects.Poisoned)
+                {
+                    if (RNG.RandomNumber(0, 100) > 90)
+                        health -= 0.1f;
+                }
+                else if (statusEffect == StatusEffects.Frozen)
+                {
+                    speed = 0.5f;
+                }
+            }
+            else if (healthBarColor != Color.Green)
+            {
+                SetHealthBarColor(Color.Green);
+                speed = 1f;
             }
         }
 
+        private void UpdateHealthBar()
+        {
+            red_rect.X = (int)position.X - 10;
+            red_rect.Y = (int)position.Y - 15;
+            green_rect.X = (int)position.X - 10;
+            green_rect.Y = (int)position.Y - 15;
+            health = MathHelper.Clamp(health, 0, maxHealth);
+            float greenWidth = 50 * (health / maxHealth);
+            green_rect.Width = (int)greenWidth;
+        }
+        private void SetHealthBarColor(Color color)
+        {
+            green_rect_texture.SetData(new Color[] { color });
+            healthBarColor = color;
+        }
         public virtual void Draw()
         {
             if (texture == null) return;

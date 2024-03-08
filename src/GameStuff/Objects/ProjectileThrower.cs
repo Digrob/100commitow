@@ -1,4 +1,5 @@
-﻿using _100commitow.src.Inputs;
+﻿using _100commitow.src.GameStuff;
+using _100commitow.src.Inputs;
 using Microsoft.Xna.Framework;
 using src.GameStuff.LivingStuff;
 using src.GameStuff.Places;
@@ -24,6 +25,7 @@ namespace src.GameStuff.Objects
             newProjectile.direction = Vector2.Normalize(MouseManager.GetPosition() - parent.center);
             newProjectile.position = parent.center;
             newProjectile.parent = parent;
+            newProjectile.statusEffect = StatusEffects.Frozen;
             WorldManager.world.AddEntity(newProjectile);
         }
     }

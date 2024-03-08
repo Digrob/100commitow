@@ -1,4 +1,5 @@
 ﻿using _100commitow.src;
+using _100commitow.src.GameStuff;
 using _100commitow.src.Inputs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -24,6 +25,7 @@ namespace src
         {
             base.Initialize();
             WorldManager.world = new World();
+            RNG.Initialize();
         }
 
         protected override void LoadContent()
