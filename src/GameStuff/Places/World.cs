@@ -2,6 +2,7 @@
 using _100commitow.src.GameStuff;
 using _100commitow.src.GameStuff.Blocks;
 using _100commitow.src.GameStuff.LivingStuff;
+using _100commitow.src.GameStuff.TileMap;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.Sprites;
@@ -23,17 +24,28 @@ namespace src.GameStuff.Places
         public Entity character;
         public Random random;
         public Quadtree quadtree;
-
+        public TileMap tileMap;
         public World()
         {
             quadtree = new Quadtree(0, Globals.windowBounds);
             random = new Random();
+            Initialize();
+            entities.ForEach(x => quadtree.Insert(x));
+        }
+
+        private void Initialize()
+        {
             entities = new List<Entity>()
             {
                 new Player(new Microsoft.Xna.Framework.Vector2(0, 0)),
                 new Wall(new Vector2(400, 200))
             };
-            entities.ForEach(x => quadtree.Insert(x));
+            tileMap = new TileMap(Textures.Get("tilemap"), 16, 16);
+            int[,] tileMapArr = new int[,]
+            {
+                { 17, 190, 17, 190,17, 190,17, 190,17, 190},
+            };
+            tileMap.LoadMap(tileMapArr);
         }
 
         public void AddEntity(Entity entity)
@@ -100,6 +112,7 @@ namespace src.GameStuff.Places
             {
                 entity.Draw();
             }
+            tileMap.Draw();
         }
     }
 }

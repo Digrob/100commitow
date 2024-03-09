@@ -228,8 +228,8 @@ namespace src.GameStuff.LivingStuff
             Globals.spriteBatch.Draw(texture, position, null, color, rotation, origin, scale, spriteEffect, depth);
             if(isAlive)
             {
-                Globals.spriteBatch.Draw(red_rect_texture, red_rect, Color.White);
-                Globals.spriteBatch.Draw(green_rect_texture, green_rect, Color.White);
+                Globals.spriteBatch.Draw(red_rect_texture, red_rect, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0);
+                Globals.spriteBatch.Draw(green_rect_texture, green_rect, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
             }
         }
 

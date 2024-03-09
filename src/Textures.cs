@@ -20,7 +20,8 @@ namespace _100commitow.src
             {
                 { "character", Globals.content.Load<Texture2D>("character_placeholder") },
                 { "projectile", Globals.content.Load<Texture2D>("test_projectile") },
-                { "wall", Globals.content.Load<Texture2D>("wall") }
+                { "wall", Globals.content.Load<Texture2D>("wall") },
+                { "tilemap", Globals.content.Load<Texture2D>("Dungeon_Tile_Set")}
             };
             font = Globals.content.Load<SpriteFont>("File");
         }
