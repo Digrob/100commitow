@@ -22,7 +22,7 @@ namespace src.GameStuff.Objects
         public override void Shoot()
         {
             Projectile newProjectile = projectile.Clone() as Projectile;
-            newProjectile.direction = Vector2.Normalize(MouseManager.GetPosition() - parent.center);
+            newProjectile.direction = Vector2.Normalize(MouseManager.GetPosition() - Globals.camera.Center);
             newProjectile.position = parent.center + newProjectile.direction*30;
             newProjectile.parent = parent;
             newProjectile.statusEffect = StatusEffects.Frozen;

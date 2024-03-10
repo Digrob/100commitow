@@ -42,9 +42,13 @@ namespace src.GameStuff.Places
                 new Wall(new Vector2(400, 200))
             };
             tileMap = new TileMap(Textures.Get("tilemap"), 16, 16);
-            int[,] tileMapArr = new int[,]
+            Tiles[,] tileMapArr = new Tiles[,]
             {
-                { 17, 190, 17, 190,17, 190,17, 190,17, 190},
+                { Tiles.First_Wall_TL, Tiles.First_Wall_TM, Tiles.First_Wall_TM, Tiles.First_Wall_TM, Tiles.First_Wall_TM, Tiles.First_Wall_TR },
+                { Tiles.First_Wall_ML, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MR },
+                { Tiles.First_Wall_ML, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MR },
+                { Tiles.First_Wall_ML, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MR },
+                { Tiles.First_Wall_BL, Tiles.First_Wall_BM, Tiles.First_Wall_BM, Tiles.First_Wall_BM, Tiles.First_Wall_BM, Tiles.First_Wall_BR },
             };
             tileMap.LoadMap(tileMapArr);
         }
@@ -113,7 +117,7 @@ namespace src.GameStuff.Places
             {
                 entity.Draw();
             }
-            tileMap.Draw();
+            tileMap.Draw(2);
         }
     }
 }

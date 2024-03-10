@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended;
+using Newtonsoft.Json.Linq;
 using src;
 using System;
 using System.Collections.Generic;
@@ -18,29 +20,48 @@ namespace _100commitow.src.GameStuff.TileMap
         private List<Rectangle> sourceRectangles;
         public TileMap(Texture2D tilesetTexture, int tileWidth, int tileHeight)
         {
-            this.tilesetTexture = SetTextureFiltering(tilesetTexture, TextureFilter.Linear);
+            this.tilesetTexture = tilesetTexture;
             this.tileWidth = tileWidth;
             this.tileHeight = tileHeight;
             this.sourceRectangles = new List<Rectangle>();
         }
 
-        private Texture2D SetTextureFiltering(Texture2D texture, TextureFilter filter)
+        private int[,] Rotate2DArray(int[,] array)
         {
-            SamplerState samplerState = new SamplerState
+            int rows = array.GetLength(0);
+            int cols = array.GetLength(1);
+            int[,] transposedArray = new int[cols, rows];
+            for (int i = 0; i < rows; i++)
             {
-                Filter = filter,
-                AddressU = TextureAddressMode.Clamp,
-                AddressV = TextureAddressMode.Clamp
-            };
-
-            Globals.graphicsDevice.SamplerStates[0] = samplerState;
-
-            return texture;
+                for (int j = 0; j < cols; j++)
+                {
+                    transposedArray[j, i] = array[i, j];
+                }
+            }
+            for (int i = 0; i < cols; i++)
+            {
+                for (int j = 0; j < rows / 2; j++)
+                {
+                    int temp = transposedArray[i, j];
+                    transposedArray[i, j] = transposedArray[i, rows - j - 1];
+                    transposedArray[i, rows - j - 1] = temp;
+                }
+            }
+            return transposedArray;
         }
-
-        public void LoadMap(int[,] tileMap)
+        public void LoadMap(Tiles[,] tileMap)
         {
-            this.tileMap = tileMap;
+            int[,] intArray = new int[tileMap.GetLength(0), tileMap.GetLength(1)];
+
+            for (int i = 0; i < tileMap.GetLength(0); i++)
+            {
+                for (int j = 0; j < tileMap.GetLength(1); j++)
+                {
+                    intArray[i, j] = (int)tileMap[i, j];
+                }
+            }
+            int[,] rotatedArray = Rotate2DArray(intArray);
+            this.tileMap = rotatedArray;
             int tilesPerRow = tilesetTexture.Width / tileWidth;
             sourceRectangles.Clear();
             for (int y = 0; y < tilesPerRow; y++)

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using src;
+using src.GameStuff.Places;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace _100commitow.src.GameStuff.View
     {
         public float Zoom { get; set; }
         public Vector2 Position { get; set; }
+        public Vector2 Center { get; set; }
         public Rectangle Bounds { get; protected set; }
         public Rectangle VisibleArea { get; protected set; }
         public Matrix Transform { get; protected set; }
@@ -23,8 +25,9 @@ namespace _100commitow.src.GameStuff.View
         public Camera(Viewport viewport)
         {
             Bounds = viewport.Bounds;
-            Zoom = .35f;
+            Zoom = 1f;
             Position = Vector2.Zero;
+            Center = new Vector2(Bounds.Width/2, Bounds.Height/2);
         }
 
 
@@ -78,7 +81,7 @@ namespace _100commitow.src.GameStuff.View
             Bounds = bounds.Bounds;
             UpdateMatrix();
 
-            Vector2 cameraMovement = Vector2.Zero;
+            Vector2 cameraMovement = WorldManager.world.GetPlayerEntity().position;
             int moveSpeed;
 
             if (Zoom > .8f)
@@ -126,7 +129,7 @@ namespace _100commitow.src.GameStuff.View
 
             }
 
-            MoveCamera(cameraMovement);
+            Position = cameraMovement;
         }
     }
 }

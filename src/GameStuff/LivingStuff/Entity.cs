@@ -26,7 +26,7 @@ namespace src.GameStuff.LivingStuff
         public SpriteEffects spriteEffect;
         public int rotation;
         public Vector2 scale;
-        public int depth;
+        public float depth;
         public Texture2D texture;
         public Vector2 center;
         public Rectangle hitbox;
@@ -53,7 +53,7 @@ namespace src.GameStuff.LivingStuff
             rotation = 0;
             origin = Vector2.Zero;
             spriteEffect = SpriteEffects.None;
-            depth = 1;
+            depth = 0.1f;
             scale = Vector2.One;
             center = position;
             color = Color.White;
@@ -80,7 +80,7 @@ namespace src.GameStuff.LivingStuff
             rotation = 0;
             origin = Vector2.Zero;
             spriteEffect = SpriteEffects.None;
-            depth = 1;
+            depth = 0.1f;
             scale = Vector2.One;
             center = position;
             color = Color.White;
@@ -108,7 +108,7 @@ namespace src.GameStuff.LivingStuff
             rotation = 0;
             origin = new Vector2(this.texture.Width / 2, this.texture.Height / 2);
             spriteEffect = SpriteEffects.None;
-            depth = 1;
+            depth = 0.1f;
             scale = Vector2.One;
             center = new Vector2(position.X+this.texture.Width / 2, position.Y+this.texture.Height / 2);
             color = Color.White;
@@ -228,8 +228,8 @@ namespace src.GameStuff.LivingStuff
             Globals.spriteBatch.Draw(texture, position, null, color, rotation, origin, scale, spriteEffect, depth);
             if(isAlive)
             {
-                Globals.spriteBatch.Draw(red_rect_texture, red_rect, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0);
-                Globals.spriteBatch.Draw(green_rect_texture, green_rect, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
+                Globals.spriteBatch.Draw(red_rect_texture, red_rect, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0.05f);
+                Globals.spriteBatch.Draw(green_rect_texture, green_rect, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0.1f);
             }
         }
 

@@ -23,6 +23,7 @@ namespace src
             IsMouseVisible = true;
             _graphics.PreferredBackBufferWidth = 640;
             _graphics.PreferredBackBufferHeight = 480;
+            _graphics.PreferredDepthStencilFormat = DepthFormat.Depth24Stencil8;
             _graphics.ApplyChanges();
         }
 
@@ -48,6 +49,7 @@ namespace src
 
         protected override void Update(GameTime gameTime)
         {
+            Globals.camera = camera;
             camera.UpdateCamera(Globals.graphicsDevice.Viewport);
             KeyboardManager.Update();
             MouseManager.Update();
@@ -60,7 +62,7 @@ namespace src
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            Globals.spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, transformMatrix: camera.Transform);
+            Globals.spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: camera.Transform);
             WorldManager.world.Draw();
             Globals.spriteBatch.End();
             
