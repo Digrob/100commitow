@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Content;
+using _100commitow.src.GameStuff.View;
 
 namespace src
 {
@@ -16,5 +17,6 @@ namespace src
         public static ContentManager content;
         public static GameWindow window;
         public static Rectangle windowBounds;
+        public static Camera camera;
     }
 }

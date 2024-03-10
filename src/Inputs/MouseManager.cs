@@ -9,14 +9,10 @@ using System.Threading.Tasks;
 
 namespace _100commitow.src.Inputs
 {
-    public class MouseManager
+    public static class MouseManager
     {
         private static MouseState state;
         private static MouseState prevState;
-        public MouseManager()
-        {
-
-        }
 
         public static void Update()
         {

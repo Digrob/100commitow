@@ -14,7 +14,6 @@ namespace src.GameStuff.Objects
     {
         public Entity parent;
         public Vector2 direction;
-        public float speed;
         public float damage;
         public Projectile() : base()
         {

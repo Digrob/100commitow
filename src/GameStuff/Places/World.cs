@@ -3,6 +3,7 @@ using _100commitow.src.GameStuff;
 using _100commitow.src.GameStuff.Blocks;
 using _100commitow.src.GameStuff.LivingStuff;
 using _100commitow.src.GameStuff.TileMap;
+using _100commitow.src.GameStuff.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.Sprites;

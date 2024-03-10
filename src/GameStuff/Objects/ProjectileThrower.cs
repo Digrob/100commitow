@@ -23,7 +23,7 @@ namespace src.GameStuff.Objects
         {
             Projectile newProjectile = projectile.Clone() as Projectile;
             newProjectile.direction = Vector2.Normalize(MouseManager.GetPosition() - parent.center);
-            newProjectile.position = parent.center;
+            newProjectile.position = parent.center + newProjectile.direction*30;
             newProjectile.parent = parent;
             newProjectile.statusEffect = StatusEffects.Frozen;
             WorldManager.world.AddEntity(newProjectile);
