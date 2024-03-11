@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using src;
+using src.GameStuff.LivingStuff;
 using src.GameStuff.Places;
 using System;
 using System.Collections.Generic;
@@ -81,7 +82,12 @@ namespace _100commitow.src.GameStuff.View
             Bounds = bounds.Bounds;
             UpdateMatrix();
 
-            Vector2 cameraMovement = WorldManager.world.GetPlayerEntity().position;
+            Player player = (Player)WorldManager.world.GetPlayerEntity();
+
+            if (player == null)
+                return;
+
+            Vector2 cameraMovement = player.position;
             int moveSpeed;
 
             if (Zoom > .8f)

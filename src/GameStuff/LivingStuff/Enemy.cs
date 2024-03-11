@@ -15,6 +15,8 @@ namespace _100commitow.src.GameStuff.LivingStuff
     public class Enemy : Entity
     {
         public Vector2 direction;
+
+        private float cooldown = 0;
         public Enemy(Vector2 position) : base(position)
         {
             texture = Textures.Get("character");
@@ -25,6 +27,7 @@ namespace _100commitow.src.GameStuff.LivingStuff
             health = 10;
             maxHealth = health;
             speed = 1;
+            damage = 10f;
         }
 
         public override void Update()
@@ -35,6 +38,13 @@ namespace _100commitow.src.GameStuff.LivingStuff
                 return;
             direction = Vector2.Normalize(player.position - position);
             position += direction * speed;
+            if (CollidesWith(player) && cooldown <= 0.00001)
+            {
+                player.Damage(damage);
+                cooldown = 5;
+            }
+            else
+                cooldown = MathHelper.Lerp(cooldown, 0, 0.5f);
         }
     }
 }

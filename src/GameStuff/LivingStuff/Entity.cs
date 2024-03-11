@@ -38,6 +38,7 @@ namespace src.GameStuff.LivingStuff
         public StatusEffects statusEffect;
         public bool immobilized;
         public float speed;
+        public float damage;
         
         private Rectangle red_rect;
         private Rectangle green_rect;
@@ -72,6 +73,7 @@ namespace src.GameStuff.LivingStuff
             healthBarColor = Color.Green;
             immobilized = false;
             speed = 1;
+            damage = 0;
         }
         public Entity(Vector2 position)
         {
@@ -99,6 +101,7 @@ namespace src.GameStuff.LivingStuff
             healthBarColor = Color.Green;
             immobilized = false;
             speed = 1;
+            damage = 0;
         }
         public Entity(string texture, Vector2 position)
         {
@@ -127,6 +130,7 @@ namespace src.GameStuff.LivingStuff
             healthBarColor = Color.Green;
             immobilized = false;
             speed = 1;
+            damage = 0;
         }
 
         public void Damage(Projectile projectile)
@@ -150,6 +154,16 @@ namespace src.GameStuff.LivingStuff
                 SetHealthBarColor(Color.Green);
             }
             health = health_after_damage;
+        }
+
+        public void Damage(float amount)
+        {
+            health -= amount;
+        }
+
+        public bool CollidesWith(Entity entity)
+        {
+            return hitbox.Intersects(entity.hitbox);
         }
 
         public virtual void Update()
