@@ -1,5 +1,6 @@
 ﻿using _100commitow.src;
 using _100commitow.src.GameStuff;
+using _100commitow.src.GameStuff.Places;
 using _100commitow.src.GameStuff.View;
 using _100commitow.src.Inputs;
 using Microsoft.Xna.Framework;
@@ -30,7 +31,7 @@ namespace src
         protected override void Initialize()
         {
             base.Initialize();
-            WorldManager.world = new World();
+            WorldManager.world = new RandomizedWorld();
             RNG.Initialize();
         }
 

@@ -43,6 +43,9 @@ namespace src.GameStuff.LivingStuff
             center = new Vector2(position.X+texture.Width/4, position.Y+texture.Height/4);
             position += velocity;
             velocity = Vector2.Zero;
+            //for debug purposes
+            if (health != 100)
+                health = 100;
         }
         private void Move()
         {

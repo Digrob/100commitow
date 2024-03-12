@@ -34,6 +34,11 @@ namespace src.GameStuff.Places
             entities.ForEach(x => quadtree.Insert(x));
         }
 
+        public static void SetAsCurrentWorld(World world)
+        {
+            WorldManager.world = world;
+        }
+
         private void Initialize()
         {
             entities = new List<Entity>()
