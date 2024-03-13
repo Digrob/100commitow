@@ -24,7 +24,11 @@ namespace _100commitow.src.GameStuff.Places
 
         private void GenerateRooms()
         {
-            
+            //here will be the code for randomizing the level
+            //imagine that there's a square in the center,
+            //and the snake comes out of it, and goes in random directions
+            //and it leaves the spaces behind it
+            //that's gonna be the room generation later
         }
 
         public override void Draw()
