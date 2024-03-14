@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using _100commitow.src.GameStuff.DungeonGeneration;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using src;
 using src.GameStuff.Places;
@@ -8,32 +9,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _100commitow.src.GameStuff.Places
+namespace src.GameStuff.DungeonGeneration
 {
     public class RandomizedWorld : World
     {
         public Room[,] rooms;
         private readonly int worldWidth = 160;
         private readonly int worldHeight = 160;
+        private readonly int roomWidth = 16;
+        private readonly int roomHeight = 16;
         private Random random = new Random();
         public RandomizedWorld()
         {
             rooms = new Room[worldWidth, worldHeight];
             GenerateRooms();
         }
-
         private void GenerateRooms()
         {
-            //here will be the code for randomizing the level
-            //imagine that there's a square in the center,
-            //and the snake comes out of it, and goes in random directions
-            //and it leaves the spaces behind it
-            //that's gonna be the room generation later
+            Rectangle current_location = new Rectangle(0, 0, roomWidth, roomHeight);
+            
+
+
         }
 
         public override void Draw()
         {
-            foreach(Room room in rooms)
+            foreach (Room room in rooms)
             {
                 room.Draw();
             }

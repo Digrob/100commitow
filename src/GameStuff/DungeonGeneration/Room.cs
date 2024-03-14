@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _100commitow.src.GameStuff.Places
+namespace _100commitow.src.GameStuff.DungeonGeneration
 {
     public class Room
     {
@@ -19,6 +19,10 @@ namespace _100commitow.src.GameStuff.Places
         {
             this.position = position;
             rect = new Rectangle((int)position.X, (int)position.Y, Width, Height);
+        }
+        public Room(Rectangle rect)
+        {
+            this.rect = rect;
         }
 
 

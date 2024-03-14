@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using src.GameStuff;
+using src.GameStuff.DungeonGeneration;
 using src.GameStuff.Places;
 
 namespace src
@@ -31,7 +32,7 @@ namespace src
         protected override void Initialize()
         {
             base.Initialize();
-            WorldManager.world = new RandomizedWorld();
+            WorldManager.world = new World();
             RNG.Initialize();
         }
 
