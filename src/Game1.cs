@@ -32,7 +32,7 @@ namespace src
         protected override void Initialize()
         {
             base.Initialize();
-            WorldManager.world = new World();
+            WorldManager.world = new LobbyWorld();
             RNG.Initialize();
         }
 

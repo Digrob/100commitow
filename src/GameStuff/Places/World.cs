@@ -26,36 +26,18 @@ namespace src.GameStuff.Places
         public Random random;
         public Quadtree quadtree;
         public TileMap tileMap;
+        public Vector2? spawnPoint;
         public World()
         {
             quadtree = new Quadtree(0, Globals.windowBounds);
             random = new Random();
-            Initialize();
-            entities.ForEach(x => quadtree.Insert(x));
+            entities = new List<Entity>();
+            tileMap = new TileMap(Textures.Get("tilemap"), 16, 16);
         }
 
         public static void SetAsCurrentWorld(World world)
         {
             WorldManager.world = world;
-        }
-
-        private void Initialize()
-        {
-            entities = new List<Entity>()
-            {
-                new Player(new Microsoft.Xna.Framework.Vector2(0, 0)),
-                new Wall(new Vector2(400, 200))
-            };
-            tileMap = new TileMap(Textures.Get("tilemap"), 16, 16);
-            Tiles[,] tileMapArr = new Tiles[,]
-            {
-                { Tiles.First_Wall_TL, Tiles.First_Wall_TM, Tiles.First_Wall_TM, Tiles.First_Wall_TM, Tiles.First_Wall_TM, Tiles.First_Wall_TR },
-                { Tiles.First_Wall_ML, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MR },
-                { Tiles.First_Wall_ML, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MR },
-                { Tiles.First_Wall_ML, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MR },
-                { Tiles.First_Wall_BL, Tiles.First_Wall_BM, Tiles.First_Wall_BM, Tiles.First_Wall_BM, Tiles.First_Wall_BM, Tiles.First_Wall_BR },
-            };
-            tileMap.LoadMap(tileMapArr);
         }
 
         public void AddEntity(Entity entity)
@@ -87,6 +69,10 @@ namespace src.GameStuff.Places
 
         public virtual void Update()
         {
+            if(!entities.Contains(character) && character != null && character.isAlive)
+            {
+                entities.Add(character);
+            }
             if(HowManyEntities(typeof(Enemy)) < 1)
             {
                 entities.Add(new Enemy(new Vector2(100, 100)));

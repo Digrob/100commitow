@@ -26,6 +26,19 @@ namespace _100commitow.src.GameStuff.TileMap
             this.sourceRectangles = new List<Rectangle>();
         }
 
+        public Vector2? GetSpawnpointPos()
+        {
+            for (int i = 0; i < tileMap.GetLength(0); i++)
+            {
+                for (int j = 0; j < tileMap.GetLength(1); j++)
+                {
+                    if (tileMap[i,j] == (int)Tiles.SpawnPoint)
+                        return new Vector2(i*32, j*32);
+                }
+            }
+            return null;
+        }
+
         private int[,] Rotate2DArray(int[,] array)
         {
             int rows = array.GetLength(0);

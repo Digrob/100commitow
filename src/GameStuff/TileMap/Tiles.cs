@@ -10,6 +10,7 @@ namespace _100commitow.src.GameStuff.TileMap
     public enum Tiles
     {
         Air = 0,
+        SpawnPoint = 1,
         First_Wall_TL = 16,
         First_Wall_TM = 17,
         First_Wall_TR = 18,
