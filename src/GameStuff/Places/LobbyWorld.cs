@@ -34,7 +34,11 @@ namespace _100commitow.src.GameStuff.Places
                 { Tiles.First_Wall_ML, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MR },
                 { Tiles.First_Wall_BL, Tiles.First_Wall_BM, Tiles.First_Wall_BM, Tiles.First_Wall_BM, Tiles.First_Wall_BM, Tiles.First_Wall_BR },
             };
-            tileMap.LoadMap(tileMapArr);
+            List<Tile> tiles = tileMap.LoadMap(tileMapArr);
+            foreach(var tile in tiles)
+            {
+                AddEntity(tile);
+            }
         }
     }
 }

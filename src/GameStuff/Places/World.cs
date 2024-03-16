@@ -106,9 +106,9 @@ namespace src.GameStuff.Places
             List<Entity> temp_list = new List<Entity>(entities);
             foreach (Entity entity in temp_list)
             {
-                entity.Draw();
+                if(entity.hitbox.Intersects(Globals.camera.VisibleArea))
+                    entity.Draw();
             }
-            tileMap.Draw(2);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using _100commitow.src;
 using _100commitow.src.GameStuff;
 using _100commitow.src.GameStuff.Blocks;
+using _100commitow.src.GameStuff.TileMap;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using src.GameStuff.Objects;
@@ -30,6 +31,7 @@ namespace src.GameStuff.LivingStuff
         public Texture2D texture;
         public Vector2 center;
         public Rectangle hitbox;
+        public Rectangle? sourceRectangle;
         public Color color;
         public bool isAlive;
         public float health;
@@ -51,6 +53,7 @@ namespace src.GameStuff.LivingStuff
         {
             position = Vector2.Zero;
             hitbox = new Rectangle((int)position.X, (int)position.Y, 1,1);
+            sourceRectangle = null;
             rotation = 0;
             origin = Vector2.Zero;
             spriteEffect = SpriteEffects.None;
@@ -79,6 +82,7 @@ namespace src.GameStuff.LivingStuff
         {
             this.position = position;
             hitbox = new Rectangle((int)position.X, (int)position.Y, 1,1);
+            sourceRectangle = null;
             rotation = 0;
             origin = Vector2.Zero;
             spriteEffect = SpriteEffects.None;
@@ -108,6 +112,7 @@ namespace src.GameStuff.LivingStuff
             this.position = position;
             this.texture = Textures.Get(texture);
             hitbox = new Rectangle((int)position.X, (int)position.Y, this.texture.Width, this.texture.Height);
+            sourceRectangle = null;
             rotation = 0;
             origin = new Vector2(this.texture.Width / 2, this.texture.Height / 2);
             spriteEffect = SpriteEffects.None;
@@ -174,9 +179,11 @@ namespace src.GameStuff.LivingStuff
                 queuedForDeath = true;
             foreach (var entity in WorldManager.world.entities)
             {
-                if (entity != this && entity is Wall)
+                if (entity is Tile)
                 {
-                    Wall wall = entity as Wall;
+                    Tile wall = entity as Tile;
+                    if (wall.collidable) continue;
+
                     if ((velocity.X > 0 && wall.IsTouchingLeft(this)) ||
                         (velocity.X < 0 && wall.IsTouchingRight(this)))
                         velocity.X = 0;

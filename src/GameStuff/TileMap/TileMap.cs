@@ -1,11 +1,14 @@
-﻿using Microsoft.Xna.Framework;
+﻿using _100commitow.src.GameStuff.Blocks;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using Newtonsoft.Json.Linq;
 using src;
+using src.GameStuff.Places;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,93 +19,67 @@ namespace _100commitow.src.GameStuff.TileMap
         private Texture2D tilesetTexture;
         private int tileWidth;
         private int tileHeight;
-        private int[,] tileMap;
-        private List<Rectangle> sourceRectangles;
+        private int tilesPerRow;
+        private List<Tile> tiles;
         public TileMap(Texture2D tilesetTexture, int tileWidth, int tileHeight)
         {
             this.tilesetTexture = tilesetTexture;
             this.tileWidth = tileWidth;
             this.tileHeight = tileHeight;
-            this.sourceRectangles = new List<Rectangle>();
+            this.tilesPerRow = tilesetTexture.Width / tileWidth;
+            this.tiles = new List<Tile>();
         }
 
         public Vector2? GetSpawnpointPos()
         {
-            for (int i = 0; i < tileMap.GetLength(0); i++)
+            foreach(var tile in tiles)
             {
-                for (int j = 0; j < tileMap.GetLength(1); j++)
-                {
-                    if (tileMap[i,j] == (int)Tiles.SpawnPoint)
-                        return new Vector2(i*32, j*32);
-                }
+                    if (tile.type == Tiles.SpawnPoint)
+                        return new Vector2(tile.hitbox.X, tile.hitbox.Y);
             }
             return null;
         }
 
-        private int[,] Rotate2DArray(int[,] array)
+        public List<Tile> LoadMap(Tiles[,] tileMapArr)
         {
-            int rows = array.GetLength(0);
-            int cols = array.GetLength(1);
-            int[,] transposedArray = new int[cols, rows];
-            for (int i = 0; i < rows; i++)
-            {
-                for (int j = 0; j < cols; j++)
-                {
-                    transposedArray[j, i] = array[i, j];
-                }
-            }
-            for (int i = 0; i < cols; i++)
-            {
-                for (int j = 0; j < rows / 2; j++)
-                {
-                    int temp = transposedArray[i, j];
-                    transposedArray[i, j] = transposedArray[i, rows - j - 1];
-                    transposedArray[i, rows - j - 1] = temp;
-                }
-            }
-            return transposedArray;
-        }
-        public void LoadMap(Tiles[,] tileMap)
-        {
-            int[,] intArray = new int[tileMap.GetLength(0), tileMap.GetLength(1)];
-
-            for (int i = 0; i < tileMap.GetLength(0); i++)
-            {
-                for (int j = 0; j < tileMap.GetLength(1); j++)
-                {
-                    intArray[i, j] = (int)tileMap[i, j];
-                }
-            }
-            int[,] rotatedArray = Rotate2DArray(intArray);
-            this.tileMap = rotatedArray;
             int tilesPerRow = tilesetTexture.Width / tileWidth;
-            sourceRectangles.Clear();
-            for (int y = 0; y < tilesPerRow; y++)
+
+            for (int y = 0; y < tileMapArr.GetLength(0); y++)
             {
-                for (int x = 0; x < tilesPerRow; x++)
+                for (int x = 0; x < tileMapArr.GetLength(1); x++)
                 {
-                    Rectangle sourceRectangle = new Rectangle(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
-                    sourceRectangles.Add(sourceRectangle);
+                    Tiles tileType = tileMapArr[y, x];
+
+                    bool collidable = Tile.isCollidable(tileType);
+
+                    int posX = x * tileWidth;
+                    int posY = y * tileHeight;
+
+                    Rectangle sourceRectangle = new Rectangle(
+                        (int)tileType % tilesPerRow * tileWidth,
+                        (int)tileType / tilesPerRow * tileHeight,
+                        tileWidth, tileHeight);
+
+                    Tile tile = new Tile(tileType, new Rectangle(posX, posY, tileWidth, tileHeight), sourceRectangle);
+                    tiles.Add(tile);
                 }
             }
+
+            return tiles;
         }
 
-        public void Draw(int tileScale = 1)
+        public Texture2D GetTile(int tileIndex)
         {
-            for (int y = 0; y < tileMap.GetLength(1); y++)
-            {
-                for (int x = 0; x < tileMap.GetLength(0); x++)
-                {
-                    int tileIndex = tileMap[x, y];
+            int x = (tileIndex % tilesPerRow) * tileWidth;
+            int y = (tileIndex / tilesPerRow) * tileHeight;
 
-                    if (tileIndex >= 0 && tileIndex < sourceRectangles.Count)
-                    {
-                        Rectangle sourceRectangle = sourceRectangles[tileIndex];
-                        Rectangle destinationRectangle = new Rectangle(x * tileWidth * tileScale, y * tileHeight * tileScale, tileWidth * tileScale, tileHeight * tileScale);
-                        Globals.spriteBatch.Draw(tilesetTexture, destinationRectangle, sourceRectangle, Color.White);
-                    }
-                }
-            }
+            Texture2D tileTexture = new Texture2D(Globals.graphicsDevice, 16, 16);
+
+            Color[] data = new Color[tileWidth * tileHeight];
+            tilesetTexture.GetData(0, new Rectangle(x, y, tileWidth, tileHeight), data, 0, tileWidth * tileHeight);
+            tileTexture.SetData(data);
+
+            return tileTexture;
         }
     }
 }
