@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using src.GameStuff.LivingStuff;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,12 +14,16 @@ namespace _100commitow.src.GameStuff.TileMap
         public bool collidable;
         public Tiles type;
 
-        public Tile(Tiles type, Rectangle hitbox, Rectangle sourceRectangle)
+        public Tile(Tiles type, Rectangle hitbox, Rectangle sourceRectangle, Texture2D tilesetTexture)
         {
             this.type = type;
             this.hitbox = hitbox;
             this.sourceRectangle = sourceRectangle;
             this.collidable = isCollidable(type);
+            this.texture = tilesetTexture;
+            position = new Vector2(hitbox.X, hitbox.Y);
+            scale = new Vector2(2,2);
+            depth = 0.01f;
         }
 
         public static bool isCollidable(Tiles tile)
@@ -30,7 +34,7 @@ namespace _100commitow.src.GameStuff.TileMap
                 Tiles.SpawnPoint,
                 Tiles.First_Wall_MM
             };
-            return !non_collidables.Contains(tile);
+            return non_collidables.Contains(tile);
         }
 
         public bool IsTouchingLeft(Entity entity)

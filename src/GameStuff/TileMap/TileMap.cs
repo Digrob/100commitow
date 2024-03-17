@@ -21,6 +21,8 @@ namespace _100commitow.src.GameStuff.TileMap
         private int tileHeight;
         private int tilesPerRow;
         private List<Tile> tiles;
+        private Dictionary<Tiles, Rectangle> sourceRectangles;
+
         public TileMap(Texture2D tilesetTexture, int tileWidth, int tileHeight)
         {
             this.tilesetTexture = tilesetTexture;
@@ -28,6 +30,23 @@ namespace _100commitow.src.GameStuff.TileMap
             this.tileHeight = tileHeight;
             this.tilesPerRow = tilesetTexture.Width / tileWidth;
             this.tiles = new List<Tile>();
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            sourceRectangles = new Dictionary<Tiles, Rectangle>();
+
+            int tilesPerRow = tilesetTexture.Width / tileWidth;
+
+            foreach (Tiles tileType in Enum.GetValues(typeof(Tiles)))
+            {
+                int tileIndex = (int)tileType;
+                int row = tileIndex / tilesPerRow;
+                int col = tileIndex % tilesPerRow;
+                Rectangle sourceRect = new Rectangle(col * tileWidth, row * tileHeight, tileWidth, tileHeight);
+                sourceRectangles.Add(tileType, sourceRect);
+            }
         }
 
         public Vector2? GetSpawnpointPos()
@@ -42,25 +61,18 @@ namespace _100commitow.src.GameStuff.TileMap
 
         public List<Tile> LoadMap(Tiles[,] tileMapArr)
         {
-            int tilesPerRow = tilesetTexture.Width / tileWidth;
-
             for (int y = 0; y < tileMapArr.GetLength(0); y++)
             {
                 for (int x = 0; x < tileMapArr.GetLength(1); x++)
                 {
                     Tiles tileType = tileMapArr[y, x];
 
-                    bool collidable = Tile.isCollidable(tileType);
-
                     int posX = x * tileWidth;
                     int posY = y * tileHeight;
 
-                    Rectangle sourceRectangle = new Rectangle(
-                        (int)tileType % tilesPerRow * tileWidth,
-                        (int)tileType / tilesPerRow * tileHeight,
-                        tileWidth, tileHeight);
+                    Rectangle sourceRectangle = sourceRectangles[tileType];
 
-                    Tile tile = new Tile(tileType, new Rectangle(posX, posY, tileWidth, tileHeight), sourceRectangle);
+                    Tile tile = new Tile(tileType, new Rectangle(posX*2, posY*2, tileWidth * 2, tileHeight * 2), sourceRectangle, tilesetTexture);
                     tiles.Add(tile);
                 }
             }

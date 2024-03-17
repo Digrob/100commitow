@@ -246,7 +246,7 @@ namespace src.GameStuff.LivingStuff
         public virtual void Draw()
         {
             if (texture == null) return;
-            Globals.spriteBatch.Draw(texture, position, null, color, rotation, origin, scale, spriteEffect, depth);
+            Globals.spriteBatch.Draw(texture, position, sourceRectangle, color, rotation, origin, scale, spriteEffect, depth);
             if(isAlive)
             {
                 Globals.spriteBatch.Draw(red_rect_texture, red_rect, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0.05f);
