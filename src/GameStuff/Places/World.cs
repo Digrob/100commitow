@@ -98,8 +98,13 @@ namespace src.GameStuff.Places
                         entity.Damage(another_entity as Projectile);
                         RemoveEntity(another_entity);
                     }
+                    else if (entity is Projectile && another_entity is Tile && !(another_entity as Tile).collidable && entity.hitbox.Intersects(another_entity.hitbox))
+                    {
+                        RemoveEntity(entity);
+                    }
                 }
             }
+            UI.Update();
         }
         public virtual void Draw()
         {
@@ -109,6 +114,10 @@ namespace src.GameStuff.Places
                 if(entity.hitbox.Intersects(Globals.camera.VisibleArea))
                     entity.Draw();
             }
+        }
+        public virtual void StaticDraw()
+        {
+            UI.Draw();
         }
     }
 }

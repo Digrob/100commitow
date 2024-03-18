@@ -175,7 +175,7 @@ namespace src.GameStuff.LivingStuff
         {
             hitbox.X = (int)position.X;
             hitbox.Y = (int)position.Y;
-            if (isAlive && health <= 0)
+            if (isAlive && health <= 0 && !(this is Player))
                 queuedForDeath = true;
             foreach (var entity in WorldManager.world.entities)
             {
@@ -247,7 +247,7 @@ namespace src.GameStuff.LivingStuff
         {
             if (texture == null) return;
             Globals.spriteBatch.Draw(texture, position, sourceRectangle, color, rotation, origin, scale, spriteEffect, depth);
-            if(isAlive)
+            if(isAlive && !(this is Player))
             {
                 Globals.spriteBatch.Draw(red_rect_texture, red_rect, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0.05f);
                 Globals.spriteBatch.Draw(green_rect_texture, green_rect, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0.1f);

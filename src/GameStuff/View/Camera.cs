@@ -20,6 +20,7 @@ namespace _100commitow.src.GameStuff.View
         public Rectangle Bounds { get; protected set; }
         public Rectangle VisibleArea { get; protected set; }
         public Matrix Transform { get; protected set; }
+        public Matrix staticTransform { get; protected set; }
 
         private float currentMouseWheelValue, previousMouseWheelValue, zoom, previousZoom;
 
@@ -55,6 +56,7 @@ namespace _100commitow.src.GameStuff.View
             Transform = Matrix.CreateTranslation(new Vector3(-Position.X, -Position.Y, 0)) *
                     Matrix.CreateScale(Zoom) *
                     Matrix.CreateTranslation(new Vector3(Bounds.Width * 0.5f, Bounds.Height * 0.5f, 0));
+            staticTransform = Matrix.CreateTranslation(new Vector3(0, 0, 0));
             UpdateVisibleArea();
         }
 

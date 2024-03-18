@@ -44,11 +44,15 @@ namespace src.GameStuff.LivingStuff
             position += velocity;
             velocity = Vector2.Zero;
             //for debug purposes
-            if (health != 100)
-                health = 100;
+            //if (health != 100)
+                //health = 100;
         }
         private void Move()
         {
+            if(Keyboard.GetState().IsKeyDown(Keys.R))
+            {
+                health = 100;
+            }
             if (!cancelMovementX && Keyboard.GetState().IsKeyDown(Keys.A))
             {
                 velocity.X = -speed;

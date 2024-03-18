@@ -25,8 +25,9 @@ namespace src.GameStuff.Objects
             newProjectile.direction = Vector2.Normalize(MouseManager.GetPosition() - Globals.camera.Center);
             newProjectile.position = parent.center + newProjectile.direction*30;
             newProjectile.parent = parent;
-            newProjectile.statusEffect = StatusEffects.Frozen;
+            newProjectile.statusEffect = StatusEffects.Poisoned;
             WorldManager.world.AddEntity(newProjectile);
         }
     }
 }
+    

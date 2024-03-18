@@ -40,6 +40,7 @@ namespace _100commitow.src.GameStuff.LivingStuff
             position += direction * speed;
             if (CollidesWith(player) && cooldown <= 0.00001)
             {
+                damage = RNG.RandomNumber(0, 30);
                 player.Damage(damage);
                 cooldown = 5;
             }
