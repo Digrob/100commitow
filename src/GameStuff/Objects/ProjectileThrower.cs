@@ -17,7 +17,7 @@ namespace src.GameStuff.Objects
         public ProjectileThrower(Entity parent) : base(parent)
         {
             this.parent = parent;
-            projectile = new Projectile();
+            projectile = new Projectile(this);
         }
         public override void Shoot()
         {

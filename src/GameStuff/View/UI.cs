@@ -48,6 +48,8 @@ namespace _100commitow.src.GameStuff.View
             Globals.spriteBatch.DrawString(Textures.font, $"Health: {player.health}", new Vector2(0, 0), Color.White);
             Globals.spriteBatch.Draw(red_rect_texture, red_rect, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0.8f);
             Globals.spriteBatch.Draw(green_rect_texture, green_rect, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0.81f);
+            Globals.spriteBatch.DrawString(Textures.font, $"Level: {player.level}", new Vector2(0, 65), Color.White);
+            Globals.spriteBatch.DrawString(Textures.font, $"XP: {player.xp}/{player.xpCap}", new Vector2(0, 80), Color.White);
         }
     }
 }

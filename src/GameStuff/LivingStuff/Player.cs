@@ -21,6 +21,9 @@ namespace src.GameStuff.LivingStuff
         public Weapon weapon;
         public bool cancelMovementX;
         public bool cancelMovementY;
+        public float xp;
+        public float xpCap;
+        public int level;
         public Player(Vector2 position) : base(position)
         {
             texture = Textures.Get("character");
@@ -33,6 +36,20 @@ namespace src.GameStuff.LivingStuff
             health = 100f;
             maxHealth = health;
             speed = 3;
+            xp = 0;
+            xpCap = 50;
+            level = 1;
+        }
+
+        public void AwardWithExp(int amount)
+        {
+            xp += amount;
+            if(xp >= xpCap)
+            {
+                xp -= xpCap;
+                xpCap += (xpCap * 0.1f);
+                level++;
+            }
         }
 
         public override void Update()

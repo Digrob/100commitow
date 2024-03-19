@@ -17,6 +17,7 @@ namespace _100commitow.src.GameStuff.LivingStuff
         public Vector2 direction;
 
         private float cooldown = 0;
+        public int xpAward;
         public Enemy(Vector2 position) : base(position)
         {
             texture = Textures.Get("character");
@@ -28,6 +29,7 @@ namespace _100commitow.src.GameStuff.LivingStuff
             maxHealth = health;
             speed = 1;
             damage = 10f;
+            xpAward = RNG.RandomNumber(5, 25);
         }
 
         public override void Update()

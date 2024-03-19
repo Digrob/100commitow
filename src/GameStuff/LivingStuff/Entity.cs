@@ -159,6 +159,11 @@ namespace src.GameStuff.LivingStuff
                 SetHealthBarColor(Color.Green);
             }
             health = health_after_damage;
+            if (isAlive && health_after_damage <= 0)
+            {
+                (projectile.weapon.parent as Player).AwardWithExp(5);
+                queuedForDeath = true;
+            }
         }
 
         public void Damage(float amount)
@@ -175,8 +180,6 @@ namespace src.GameStuff.LivingStuff
         {
             hitbox.X = (int)position.X;
             hitbox.Y = (int)position.Y;
-            if (isAlive && health <= 0 && !(this is Player))
-                queuedForDeath = true;
             foreach (var entity in WorldManager.world.entities)
             {
                 if (entity is Tile)

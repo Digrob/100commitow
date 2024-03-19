@@ -15,20 +15,24 @@ namespace src.GameStuff.Objects
         public Entity parent;
         public Vector2 direction;
         public float damage;
-        public Projectile() : base()
+        public Weapon weapon;
+        public Projectile(Weapon weapon) : base()
         {
             texture = Textures.Get("projectile");
             direction = Vector2.Zero;
             speed = 1f;
             hitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
             damage = 2f;
+            this.weapon = weapon;
+
         }
 
-        public Projectile(Vector2 direction) : base()
+        public Projectile(Vector2 direction, Weapon weapon) : base()
         {
             texture = Textures.Get("projectile");
             this.direction = direction;
             speed = 1f;
+            this.weapon = weapon;
         }
 
         public Projectile(Vector2 direction, float speed) : base()
