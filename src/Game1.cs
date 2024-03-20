@@ -70,6 +70,7 @@ namespace src
 
             Globals.spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: camera.staticTransform);
             WorldManager.world.StaticDraw();
+            
             Globals.spriteBatch.End();
 
             base.Draw(gameTime);

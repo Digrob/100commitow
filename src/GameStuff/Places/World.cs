@@ -27,12 +27,14 @@ namespace src.GameStuff.Places
         public Quadtree quadtree;
         public TileMap tileMap;
         public Vector2? spawnPoint;
+        public Menu pauseMenu;
         public World()
         {
             quadtree = new Quadtree(0, Globals.windowBounds);
             random = new Random();
             entities = new List<Entity>();
             tileMap = new TileMap(Textures.Get("tilemap"), 16, 16);
+            pauseMenu = new Menu();
         }
 
         public static void SetAsCurrentWorld(World world)
@@ -104,7 +106,8 @@ namespace src.GameStuff.Places
                     }
                 }
             }
-            UI.Update();
+            HUD.Update();
+            pauseMenu.Update();
         }
         public virtual void Draw()
         {
@@ -117,7 +120,8 @@ namespace src.GameStuff.Places
         }
         public virtual void StaticDraw()
         {
-            UI.Draw();
+            HUD.Draw();
+            pauseMenu.Draw();
         }
     }
 }
