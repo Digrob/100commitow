@@ -8,6 +8,13 @@ namespace _100commitow.src.GameStuff.View
 {
     public class Control
     {
+        public virtual void Update()
+        {
 
+        }
+        public virtual void Draw()
+        {
+
+        }
     }
 }

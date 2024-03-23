@@ -8,14 +8,20 @@ namespace _100commitow.src.GameStuff
 {
     public class RNG
     {
-        private static Random random;
-        public static void Initialize()
+        private static Random _random;
+        public static Random Random
         {
-            random = new Random();
+            get
+            {
+                if(_random == null)
+                    _random = new Random();
+                return _random;
+            }
         }
+
         public static int RandomNumber(int min = 0, int max = 10)
         {
-            return random.Next(min, max);
+            return Random.Next(min, max);
         }
     }
 }

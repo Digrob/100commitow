@@ -8,6 +8,8 @@ namespace _100commitow.src.GameStuff.View
 {
     public class Button : Control
     {
+        public Action onClick;
 
+        
     }
 }

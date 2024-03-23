@@ -1,5 +1,6 @@
 ﻿using _100commitow.src;
 using _100commitow.src.GameStuff;
+using _100commitow.src.GameStuff.GameStates;
 using _100commitow.src.GameStuff.Places;
 using _100commitow.src.GameStuff.View;
 using _100commitow.src.Inputs;
@@ -8,13 +9,13 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using src.GameStuff;
 using src.GameStuff.DungeonGeneration;
+using src.GameStuff.GameStates;
 using src.GameStuff.Places;
 
 namespace src
 {
     public class Game1 : Game
     {
-        private Camera camera;
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
@@ -32,8 +33,6 @@ namespace src
         protected override void Initialize()
         {
             base.Initialize();
-            WorldManager.world = new LobbyWorld();
-            RNG.Initialize();
         }
 
         protected override void LoadContent()
@@ -41,21 +40,21 @@ namespace src
             Globals.graphicsDevice = GraphicsDevice;
             Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
             Globals.content = Content;
-            Globals.window = Window;
             int w = _graphics.PreferredBackBufferWidth;
             int h = _graphics.PreferredBackBufferHeight;
             Globals.windowBounds = new Rectangle(0, 0, w, h);
-            Textures.Load();
-            camera = new Camera(GraphicsDevice.Viewport);
+            GameStateManager.Instance.AddScreen(new MainGameState());
+
+        }
+
+        protected override void UnloadContent()
+        {
+            GameStateManager.Instance.UnloadContent();
         }
 
         protected override void Update(GameTime gameTime)
         {
-            Globals.camera = camera;
-            camera.UpdateCamera(Globals.graphicsDevice.Viewport);
-            KeyboardManager.Update();
-            MouseManager.Update();
-            WorldManager.world.Update();
+            GameStateManager.Instance.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -64,14 +63,7 @@ namespace src
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            Globals.spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: camera.Transform);
-            WorldManager.world.Draw();
-            Globals.spriteBatch.End();
-
-            Globals.spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: camera.staticTransform);
-            WorldManager.world.StaticDraw();
-            
-            Globals.spriteBatch.End();
+            GameStateManager.Instance.Draw();
 
             base.Draw(gameTime);
         }
