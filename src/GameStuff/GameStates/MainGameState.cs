@@ -16,6 +16,9 @@ using System.Threading.Tasks;
 
 namespace _100commitow.src.GameStuff.GameStates
 {
+    /// <summary>
+    /// A main game state, when the player is in the game
+    /// </summary>
     internal class MainGameState : GameState
     {
         private Camera camera;
@@ -27,7 +30,6 @@ namespace _100commitow.src.GameStuff.GameStates
 
         public override void LoadContent()
         {
-
             camera = new Camera(Globals.graphicsDevice.Viewport);
         }
 
@@ -52,7 +54,6 @@ namespace _100commitow.src.GameStuff.GameStates
 
             Globals.spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: camera.staticTransform);
             WorldManager.world.StaticDraw();
-
             Globals.spriteBatch.End();
         }
     }

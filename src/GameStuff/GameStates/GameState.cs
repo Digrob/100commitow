@@ -10,6 +10,9 @@ using src;
 
 namespace src.GameStuff.GameStates
 {
+    /// <summary>
+    /// A state of the game, for example in game state, or pause menu state
+    /// </summary>
     public abstract class GameState
     {
         protected GraphicsDevice _graphicsDevice;

@@ -41,7 +41,7 @@ namespace src.GameStuff.GameStates
                 _states.Peek().Initialize();
                 _states.Peek().LoadContent();
             }
-            catch (Exception ex)
+            catch (Exception)
             { }
         }
 
@@ -54,7 +54,7 @@ namespace src.GameStuff.GameStates
                     var screen = _states.Peek();
                     _states.Pop();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 { }
             }
         }
@@ -74,7 +74,7 @@ namespace src.GameStuff.GameStates
                 ClearScreens();
                 AddScreen(screen);
             }
-            catch (Exception ex)
+            catch (Exception)
             { }
         }
 
@@ -87,7 +87,7 @@ namespace src.GameStuff.GameStates
                     _states.Peek().Update(gameTime);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             { }
         }
         public void Draw()
@@ -99,7 +99,7 @@ namespace src.GameStuff.GameStates
                     _states.Peek().Draw();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             { }
         }
     }
