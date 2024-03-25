@@ -1,4 +1,5 @@
 ﻿using _100commitow.src.GameStuff;
+using _100commitow.src.GameStuff.Objects;
 using _100commitow.src.Inputs;
 using Microsoft.Xna.Framework;
 using src.GameStuff.LivingStuff;
@@ -17,11 +18,12 @@ namespace src.GameStuff.Objects
         public ProjectileThrower(Entity parent) : base(parent)
         {
             this.parent = parent;
-            projectile = new Projectile(this);
+            projectile = new FollowingProjectile(80);
+            projectile.weapon = this;
         }
         public override void Shoot()
         {
-            Projectile newProjectile = projectile.Clone() as Projectile;
+            Projectile newProjectile = projectile.Clone() as FollowingProjectile;
             newProjectile.direction = Vector2.Normalize(MouseManager.GetPosition() - Globals.camera.Center);
             newProjectile.position = parent.center + newProjectile.direction*30;
             newProjectile.parent = parent;
@@ -30,4 +32,4 @@ namespace src.GameStuff.Objects
         }
     }
 }
-    
+   
