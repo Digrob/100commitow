@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace _100commitow.src.GameStuff.View
 {
+    /// <summary>
+    /// A static layer which displays statuses like player's hp or level
+    /// </summary>
     public class HUD
     {
         private static bool initialized = false;
