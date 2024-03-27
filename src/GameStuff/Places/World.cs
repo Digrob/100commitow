@@ -106,7 +106,6 @@ namespace src.GameStuff.Places
                 }
             }
             HUD.Update();
-            pauseMenu.Update();
         }
         public virtual void Draw()
         {
@@ -120,7 +119,6 @@ namespace src.GameStuff.Places
         public virtual void StaticDraw()
         {
             HUD.Draw();
-            pauseMenu.Draw();
         }
     }
 }

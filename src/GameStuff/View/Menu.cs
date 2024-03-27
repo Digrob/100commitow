@@ -4,8 +4,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using src;
+using src.GameStuff.GameStates;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,12 +27,19 @@ namespace _100commitow.src.GameStuff.View
             int x = (Globals.graphicsDevice.Viewport.Width / 2) - (width / 3);
             int y = (Globals.graphicsDevice.Viewport.Height / 2) - (width / 3); //centering the menu
             rect = new Rectangle(x, y, width, height);
+            Initialize();
         }
+
+        private void Initialize()
+        {
+            
+        }
+
         public override void Update()
         {
             if(KeyboardManager.Pressed(Keys.Escape))
             {
-                Toggle();
+                //GameStateManager.Instance.AddScreen();
             }
         }
         public override void Draw()

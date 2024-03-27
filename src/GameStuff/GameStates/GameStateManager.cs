@@ -33,6 +33,11 @@ namespace src.GameStuff.GameStates
             }
         }
 
+        public GameState Peek()
+        {
+            return _states.Peek();
+        }
+
         public void AddScreen(GameState state)
         {
             try

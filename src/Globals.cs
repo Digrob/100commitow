@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Content;
 using _100commitow.src.GameStuff.View;
+using System.ComponentModel.Design;
+using src.GameStuff.GameStates;
 
 namespace src
 {
@@ -17,5 +19,6 @@ namespace src
         public static ContentManager content;
         public static Rectangle windowBounds;
         public static Camera camera;
+        public static List<GameState> gameStates;
     }
 }

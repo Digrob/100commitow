@@ -11,6 +11,7 @@ using src.GameStuff;
 using src.GameStuff.DungeonGeneration;
 using src.GameStuff.GameStates;
 using src.GameStuff.Places;
+using System.Collections.Generic;
 
 namespace src
 {
@@ -43,7 +44,13 @@ namespace src
             int w = _graphics.PreferredBackBufferWidth;
             int h = _graphics.PreferredBackBufferHeight;
             Globals.windowBounds = new Rectangle(0, 0, w, h);
-            GameStateManager.Instance.AddScreen(new MainGameState());
+            Globals.gameStates = new List<GameState>()
+            {
+                new MainGameState(),
+                new PauseMenuGameState()
+            };
+            Textures.Load();
+            GameStateManager.Instance.AddScreen(Globals.gameStates[0]);
 
         }
 
@@ -61,8 +68,6 @@ namespace src
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
             GameStateManager.Instance.Draw();
 
             base.Draw(gameTime);

@@ -4,6 +4,7 @@ using _100commitow.src.Inputs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using src;
 using src.GameStuff.GameStates;
 using src.GameStuff.Places;
@@ -22,10 +23,11 @@ namespace _100commitow.src.GameStuff.GameStates
     internal class MainGameState : GameState
     {
         private Camera camera;
+        private bool stopFromExiting;
         public override void Initialize()
         {
-            Textures.Load();
             WorldManager.world = new LobbyWorld();
+            stopFromExiting = true;
         }
 
         public override void LoadContent()
@@ -45,9 +47,20 @@ namespace _100commitow.src.GameStuff.GameStates
             KeyboardManager.Update();
             MouseManager.Update();
             WorldManager.world.Update();
+            if (KeyboardManager.Down(Keys.Escape) && !stopFromExiting)
+            {
+                stopFromExiting = true;
+                GameStateManager.Instance.AddScreen(Globals.gameStates[1]);
+            }
+            else if (!KeyboardManager.Down(Keys.Escape) && stopFromExiting)
+            {
+                stopFromExiting = false;
+            }
         }
         public override void Draw()
         {
+            Globals.graphicsDevice.Clear(Color.CornflowerBlue);
+
             Globals.spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: camera.Transform);
             WorldManager.world.Draw();
             Globals.spriteBatch.End();
