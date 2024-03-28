@@ -29,7 +29,7 @@ namespace _100commitow.src.Inputs
 
         public static bool Down(Keys key)
         {
-            return state.IsKeyDown(key) && state == prevState;
+            return state.IsKeyDown(key);
         }
     }
 }

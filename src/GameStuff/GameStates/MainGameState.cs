@@ -44,18 +44,8 @@ namespace _100commitow.src.GameStuff.GameStates
         {
             Globals.camera = camera;
             camera.UpdateCamera(Globals.graphicsDevice.Viewport);
-            KeyboardManager.Update();
             MouseManager.Update();
             WorldManager.world.Update();
-            if (KeyboardManager.Down(Keys.Escape) && !stopFromExiting)
-            {
-                stopFromExiting = true;
-                GameStateManager.Instance.AddScreen(Globals.gameStates[1]);
-            }
-            else if (!KeyboardManager.Down(Keys.Escape) && stopFromExiting)
-            {
-                stopFromExiting = false;
-            }
         }
         public override void Draw()
         {

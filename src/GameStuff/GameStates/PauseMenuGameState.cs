@@ -52,15 +52,6 @@ namespace _100commitow.src.GameStuff.GameStates
 
         public override void Update(GameTime gameTime)
         {
-            if (KeyboardManager.Down(Keys.Escape) && !stopFromExiting)
-            {
-                stopFromExiting = true;
-                GameStateManager.Instance.RemoveScreen();
-            }
-            else if (!KeyboardManager.Down(Keys.Escape) && stopFromExiting && GameStateManager.Instance.Peek() == this)
-            {
-                stopFromExiting = false;
-            }
             foreach(Control control in controls)
             {
                 control.Update();

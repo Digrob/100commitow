@@ -1,6 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using _100commitow.src.GameStuff.GameStates;
+using _100commitow.src.Inputs;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.Screens;
 using System;
 using System.Collections.Generic;
@@ -14,6 +17,7 @@ namespace src.GameStuff.GameStates
     {
         private static GameStateManager _instance;
         private Stack<GameState> _states = new Stack<GameState>();
+        private bool stopFromSwitching = false;
 
         public static GameStateManager Instance
         {
@@ -90,6 +94,18 @@ namespace src.GameStuff.GameStates
                 if (_states.Count > 0)
                 {
                     _states.Peek().Update(gameTime);
+                    if (KeyboardManager.Down(Keys.Escape) && !stopFromSwitching)
+                    {
+                        if(_states.Peek() is MainGameState)
+                            Instance.AddScreen(Globals.gameStates[1]);
+                        else if(_states.Peek() is PauseMenuGameState)
+                            Instance.RemoveScreen();
+                        stopFromSwitching = true;
+                    }
+                    else if(!KeyboardManager.Down(Keys.Escape))
+                    {
+                        stopFromSwitching = false;
+                    }
                 }
             }
             catch (Exception)
