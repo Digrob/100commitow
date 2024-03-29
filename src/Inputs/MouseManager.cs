@@ -27,6 +27,11 @@ namespace _100commitow.src.Inputs
             return Globals.windowBounds.Contains(mouseX, mouseY);
         }
 
+        public static bool InsideARect(Rectangle rect)
+        {
+            return rect.Contains(state.Position);
+        }
+
         public static bool LeftPressed()
         {
             return IsCursorInsideTheGame() && state.LeftButton == ButtonState.Pressed && prevState.LeftButton != ButtonState.Pressed;

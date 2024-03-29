@@ -62,6 +62,7 @@ namespace src
         protected override void Update(GameTime gameTime)
         {
             KeyboardManager.Update();
+            MouseManager.Update();
             GameStateManager.Instance.Update(gameTime);
 
             base.Update(gameTime);

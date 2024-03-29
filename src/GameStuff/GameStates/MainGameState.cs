@@ -44,7 +44,6 @@ namespace _100commitow.src.GameStuff.GameStates
         {
             Globals.camera = camera;
             camera.UpdateCamera(Globals.graphicsDevice.Viewport);
-            MouseManager.Update();
             WorldManager.world.Update();
         }
         public override void Draw()

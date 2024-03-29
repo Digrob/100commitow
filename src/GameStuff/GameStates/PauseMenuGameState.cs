@@ -30,14 +30,21 @@ namespace _100commitow.src.GameStuff.GameStates
             stopFromExiting = true;
             title = "The game is paused";
             spacing = 20;
+            Button resumeButton = new Button("RESUME");
+            resumeButton.onClick += ResumeButtonClickEvent;
             controls = new List<Control>()
             {
-                new Button("RESUME"),
+                resumeButton,
                 new Button("OPTIONS"),
                 new Button("QUIT")
             };
             titlePosition = new Vector2((Globals.windowBounds.Width - Textures.font.MeasureString(title).X) / 2, 50);
             menuPosition = new Vector2(Globals.windowBounds.Width / 2, Globals.windowBounds.Height / 2);
+        }
+
+        private void ResumeButtonClickEvent(object sender, EventArgs e)
+        {
+            GameStateManager.Instance.RemoveScreen();
         }
 
         public override void LoadContent()
