@@ -23,6 +23,7 @@ namespace src.GameStuff.GameStates
         public abstract void Initialize();
         public abstract void LoadContent();
         public abstract void UnloadContent();
+        //updates the gamestate
         public abstract void Update(GameTime gameTime);
         public abstract void Draw();
     }
