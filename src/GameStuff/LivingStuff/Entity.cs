@@ -185,7 +185,7 @@ namespace src.GameStuff.LivingStuff
                 {
                     Tile wall = entity as Tile;
                     if (wall.collidable) continue;
-
+                    //Reducing entity's velocity to 0 when it's hitting a wall
                     if ((velocity.X > 0 && wall.IsTouchingLeft(this)) ||
                         (velocity.X < 0 && wall.IsTouchingRight(this)))
                         velocity.X = 0;
