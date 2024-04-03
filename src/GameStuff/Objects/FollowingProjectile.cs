@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 
 namespace _100commitow.src.GameStuff.Objects
 {
+    /// <summary>
+    /// It's a projectile, that follows the closest enemy
+    /// </summary>
     public class FollowingProjectile : Projectile
     {
         public float followRadius;
