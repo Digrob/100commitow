@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace _100commitow.src.GameStuff.View
 {
+    /// <summary>
+    /// This is an UI, which is in the HUD, instead of a different GameState
+    /// </summary>
     public class UI
     {
         public bool visible;
