@@ -20,6 +20,7 @@ namespace src.GameStuff.Objects
             this.parent = parent;
             projectile = new FollowingProjectile(80);
             projectile.weapon = this;
+            statusEffect = StatusEffects.None;
         }
         public override void Shoot()
         {
@@ -27,7 +28,7 @@ namespace src.GameStuff.Objects
             newProjectile.direction = Vector2.Normalize(MouseManager.GetPosition() - Globals.camera.Center);
             newProjectile.position = parent.center + newProjectile.direction*30;
             newProjectile.parent = parent;
-            newProjectile.statusEffect = StatusEffects.Poisoned;
+            newProjectile.statusEffect = statusEffect;
             WorldManager.world.AddEntity(newProjectile);
         }
     }

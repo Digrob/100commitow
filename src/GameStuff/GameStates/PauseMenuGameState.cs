@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 using src;
+using src.GameStuff.Controls;
 using src.GameStuff.GameStates;
 using src.GameStuff.Places;
 using System;

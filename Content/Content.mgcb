@@ -13,7 +13,7 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin ../../../../Desktop/Dungeon_Tile_Set.png
+#begin Dungeon_Tile_Set.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -23,7 +23,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../../../../Desktop/Dungeon_Tile_Set.png;Dungeon_Tile_Set.png
+/build:Dungeon_Tile_Set.png;Dungeon_Tile_Set.png
 
 #begin character_placeholder.png
 /importer:TextureImporter

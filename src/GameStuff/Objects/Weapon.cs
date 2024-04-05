@@ -1,4 +1,5 @@
-﻿using _100commitow.src.Inputs;
+﻿using _100commitow.src.GameStuff;
+using _100commitow.src.Inputs;
 using Microsoft.Xna.Framework.Input;
 using src.GameStuff.LivingStuff;
 using System;
@@ -17,6 +18,7 @@ namespace src.GameStuff.Objects
         public Projectile projectile;
         public Action onShoot;
         public Vector2 direction;
+        public StatusEffects statusEffect;
 
         public Weapon(Entity parent)
         {

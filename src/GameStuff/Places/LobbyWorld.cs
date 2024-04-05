@@ -25,7 +25,7 @@ namespace _100commitow.src.GameStuff.Places
                 { Tiles.First_Wall_TL, Tiles.First_Wall_TM, Tiles.First_Wall_TM, Tiles.First_Wall_TM, Tiles.First_Wall_TM, Tiles.First_Wall_TR },
                 { Tiles.First_Wall_ML, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MR },
                 { Tiles.First_Wall_ML, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MR },
-                { Tiles.First_Wall_ML, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MR },
+                { Tiles.First_Wall_ML, Tiles.First_Wall_MM, Tiles.Barrel, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MR },
                 { Tiles.First_Wall_ML, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MR },
                 { Tiles.First_Wall_ML, Tiles.First_Wall_MM, Tiles.SpawnPoint, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MR },
                 { Tiles.First_Wall_ML, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MM, Tiles.First_Wall_MR },

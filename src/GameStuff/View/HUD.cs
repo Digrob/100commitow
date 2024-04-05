@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using _100commitow.src.GameStuff.UIs;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using src;
 using src.GameStuff.LivingStuff;
@@ -17,6 +18,9 @@ namespace _100commitow.src.GameStuff.View
     /// </summary>
     public class HUD
     {
+        public static UI queuedUI;
+
+        private static UI? UI;
         private static bool initialized = false;
         private static Rectangle red_rect;
         private static Rectangle green_rect;
@@ -33,6 +37,7 @@ namespace _100commitow.src.GameStuff.View
             green_rect_texture = new Texture2D(Globals.graphicsDevice, 1, 1);
             green_rect_texture.SetData(new Color[] { Color.Green });
             initialized = true;
+            UI = null;
         }
         private static void UpdateHealthBar()
         {
@@ -40,10 +45,30 @@ namespace _100commitow.src.GameStuff.View
             float greenWidth = 125 * (player.health / player.maxHealth);
             green_rect.Width = (int)greenWidth;
         }
+
+        public static bool IsUINull()
+        {
+            return UI == null;
+        }
         public static void Update()
         {
             if (!initialized)
                 Initialize();
+            if(queuedUI != null)
+            {
+                if (queuedUI.GetType() == typeof(UINone))
+                {
+                    UI = null;
+                    queuedUI = null;
+                }
+                else
+                {
+                    UI = queuedUI;
+                    queuedUI = null;
+                }
+            }
+            if (UI != null)
+                UI.Update();
             UpdateHealthBar();
         }
         public static void Draw()
@@ -53,6 +78,8 @@ namespace _100commitow.src.GameStuff.View
             Globals.spriteBatch.Draw(green_rect_texture, green_rect, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0.81f);
             Globals.spriteBatch.DrawString(Textures.font, $"Level: {player.level}", new Vector2(0, 65), Color.White);
             Globals.spriteBatch.DrawString(Textures.font, $"XP: {player.xp}/{player.xpCap}", new Vector2(0, 80), Color.White);
+            if (UI != null)
+                UI.Draw();
         }
     }
 }
