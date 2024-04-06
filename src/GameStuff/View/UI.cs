@@ -44,14 +44,14 @@ namespace _100commitow.src.GameStuff.View
         {
             int width = control.rect.Width;
             int height = control.rect.Height;
-            int x = rect.X;
-            int y = rect.Y;
+            int x = rect.X + spacing;
+            int y = rect.Y + spacing;
             foreach(var _ in controls)
             {
                 x += width + spacing;
                 if(x > rect.Width)
                 {
-                    x = rect.X;
+                    x = rect.X + spacing;
                     y += rect.Height + spacing;
                 }
             }

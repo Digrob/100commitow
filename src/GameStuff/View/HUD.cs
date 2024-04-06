@@ -1,7 +1,9 @@
 ﻿using _100commitow.src.GameStuff.UIs;
+using _100commitow.src.Inputs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using src;
+using src.GameStuff.Controls;
 using src.GameStuff.LivingStuff;
 using src.GameStuff.Places;
 using System;
@@ -44,6 +46,13 @@ namespace _100commitow.src.GameStuff.View
             player.health = MathHelper.Clamp(player.health, 0, player.maxHealth);
             float greenWidth = 125 * (player.health / player.maxHealth);
             green_rect.Width = (int)greenWidth;
+        }
+
+        public static bool HoveringOverUI()
+        {
+            if (UI == null)
+                return false;
+            return MouseManager.InsideARect(UI.rect);
         }
 
         public static bool IsUINull()

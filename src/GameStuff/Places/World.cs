@@ -114,6 +114,8 @@ namespace src.GameStuff.Places
                             else
                                 HUD.queuedUI = new UINone();
                         }
+                        else if (!HUD.IsUINull() && distance > 40f)
+                            HUD.queuedUI = new UINone();
                     }
                 }
             }
