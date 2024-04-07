@@ -72,7 +72,8 @@ namespace _100commitow.src.GameStuff.View
             Globals.spriteBatch.Draw(texture, rect, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.95f);
             foreach(var control in controls)
             {
-                Globals.spriteBatch.Draw(control.texture, control.rect, null, control.color, 0f, Vector2.Zero, SpriteEffects.None, 0.96f);
+                control.Draw();
+                //Globals.spriteBatch.Draw(control.texture, control.rect, null, control.color, 0f, Vector2.Zero, SpriteEffects.None, 0.96f);
             }
         }
     }

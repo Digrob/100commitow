@@ -1,4 +1,5 @@
-﻿using _100commitow.src.GameStuff.View;
+﻿using _100commitow.src.GameStuff.Controls;
+using _100commitow.src.GameStuff.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using src;
@@ -27,7 +28,7 @@ namespace _100commitow.src.GameStuff.UIs
 
         private void Initialize()
         {
-            foreach(StatusEffects statusEffect in Enum.GetValues(typeof(StatusEffects)))
+            /*foreach(StatusEffects statusEffect in Enum.GetValues(typeof(StatusEffects)))
             {
                 Button button = new Button(new Rectangle(0,0,50,50), statusEffect.ToString(), false);
                 button.color = StatusEffectManager.GetColor(statusEffect);
@@ -36,7 +37,8 @@ namespace _100commitow.src.GameStuff.UIs
                     (WorldManager.world.GetPlayerEntity() as Player).weapon.statusEffect = statusEffect;
                 };
                 AddControl(button);
-            }
+            }*/
+            AddControl(new Textbox(new Rectangle(0,0,100,50)));
         }
     }
 }
