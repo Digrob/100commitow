@@ -105,6 +105,7 @@ namespace _100commitow.src.GameStuff.Controls
 
         public override void Draw()
         {
+            Globals.spriteBatch.Draw(texture, new Rectangle(rect.X-1, rect.Y-1, rect.Width+2, rect.Height+2), null, Color.DarkSlateGray, 0f, Vector2.Zero, SpriteEffects.None, 0.98f);
             Globals.spriteBatch.Draw(texture, rect, null, Color.Black, 0f, Vector2.Zero, SpriteEffects.None, 0.99f);
             Vector2 drawPosition = new Vector2(rect.X, rect.Y) + new Vector2(5, 5);
             foreach (string line in lines)
