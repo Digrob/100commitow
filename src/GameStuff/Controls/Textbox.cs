@@ -24,6 +24,7 @@ namespace _100commitow.src.GameStuff.Controls
         private bool showCaret;
         private List<string> lines;
         private Texture2D caretTexture;
+        private bool active;
         public Textbox(Rectangle rect)
         {
             this.texture = new Texture2D(Globals.graphicsDevice, 1, 1);
@@ -45,8 +46,39 @@ namespace _100commitow.src.GameStuff.Controls
             caretTimer = 0;
         }
 
+        private bool IsTextTooLong(string text)
+        {
+            return Textures.font.MeasureString(text).X > rect.Width;
+        }
+
+        private int CountNewlines(string s)
+        {
+            int length= s.Length;
+            int count = 0;
+            for (int i = 0; i < length; i++)
+            {
+                if (s[i] == '\n')
+                    count++;
+            }
+            return count;
+        }
+
+        private int LastNewlineIndex(string text)
+        {
+            int index = text.LastIndexOf('\n');
+            return index == -1 ? 0 : index;
+        }
+
+        private void ActivateCheck()
+        {
+            if (MouseManager.LeftPressed())
+                active = MouseManager.InsideARect(rect);
+        }
+
         public override void Update()
         {
+            ActivateCheck();
+            if (!active) return;
             KeyboardState state = Keyboard.GetState();
             Keys[] pressedKeys = state.GetPressedKeys();
 
@@ -57,42 +89,31 @@ namespace _100commitow.src.GameStuff.Controls
                     KeepCaretActive();
                     if (key == Keys.Back && text.Length > 0)
                     {
-                        text = text.Substring(0, text.Length - 1);
+                        if (text.EndsWith("\n"))
+                            text = text.Substring(0, text.Length - 2);
+                        else
+                            text = text.Substring(0, text.Length - 1);
                     }
                     else if (key == Keys.Space)
                     {
+                        if (IsTextTooLong(text + " "))
+                            text += "\n";
                         text += " ";
                     }
                     else
                     {
                         if (key.ToString().Length == 1)
                         {
+                            if (IsTextTooLong(text + key.ToString()))
+                                text += "\n";
                             text += key.ToString();
                         }
                     }
                 }
             }
-
-            string[] words = text.Split(' ');
-            string currentLine = "";
-            lines.Clear();
-            foreach (string word in words)
-            {
-                if (Textures.font.MeasureString(currentLine + word).X <= rect.Width)
-                {
-                    currentLine += word + " ";
-                }
-                else
-                {
-                    lines.Add(currentLine);
-                    currentLine = word + " ";
-                }
-            }
-            lines.Add(currentLine);
-
-            caretPosition.X = rect.X + Textures.font.MeasureString(lines.Last()).X;
+            caretPosition.X = rect.X + Textures.font.MeasureString(text.Substring(LastNewlineIndex(text))).X + Textures.font.MeasureString(" ").X;
             //5 is the spacing between textbox bounds and the text
-            caretPosition.Y = rect.Y - Textures.font.LineSpacing + 5;
+            caretPosition.Y = rect.Y - Textures.font.LineSpacing + 5 + (Textures.font.LineSpacing * CountNewlines(text));
             lastPressedKeys = pressedKeys;
 
             caretTimer += 2.5f;
@@ -115,7 +136,7 @@ namespace _100commitow.src.GameStuff.Controls
             Globals.spriteBatch.Draw(texture, rect, null, Color.Black, 0f, Vector2.Zero, SpriteEffects.None, 0.99f);
             Globals.spriteBatch.DrawString(Textures.font, text, new Vector2(rect.X, rect.Y) + new Vector2(5, 5), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
 
-            if (showCaret)
+            if (showCaret && active)
             {
                 DrawCaret(caretPosition + new Vector2(0, Textures.font.LineSpacing));
                 //DrawCaret(new Vector2(rect.X, rect.Y));
