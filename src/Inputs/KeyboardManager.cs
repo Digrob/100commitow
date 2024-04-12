@@ -33,14 +33,14 @@ namespace _100commitow.src.Inputs
             locked = false;
         }
 
-        public static bool Pressed(Keys key)
+        public static bool Pressed(Keys key, bool ignoreLock = false)
         {
-            return !locked && state.IsKeyDown(key) && state != prevState;
+            return (!locked || ignoreLock) && state.IsKeyDown(key) && state != prevState;
         }
 
-        public static bool Down(Keys key)
+        public static bool Down(Keys key, bool ignoreLock = false)
         {
-            return !locked && state.IsKeyDown(key);
+            return (!locked || ignoreLock) && state.IsKeyDown(key);
         }
     }
 }

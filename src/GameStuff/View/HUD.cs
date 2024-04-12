@@ -59,6 +59,12 @@ namespace _100commitow.src.GameStuff.View
         {
             return UI == null;
         }
+
+        public static UI? GetUI()
+        {
+            return UI;
+        }
+
         public static void Update()
         {
             if (!initialized)
@@ -77,7 +83,12 @@ namespace _100commitow.src.GameStuff.View
                 }
             }
             if (UI != null)
+            {
                 UI.Update();
+                KeyboardManager.Lock();
+            }
+            else
+                KeyboardManager.Unlock();
             UpdateHealthBar();
         }
         public static void Draw()

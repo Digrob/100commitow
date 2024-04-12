@@ -20,5 +20,6 @@ namespace src
         public static Rectangle windowBounds;
         public static Camera camera;
         public static List<GameState> gameStates;
+        public static string weaponCode;
     }
 }

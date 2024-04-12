@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using _100commitow.src.GameStuff.Controls;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using src;
 using src.GameStuff.Controls;
@@ -38,6 +39,14 @@ namespace _100commitow.src.GameStuff.View
             controls = new List<Control>();
             this.menuPadding = menuPadding;
             rect = new Rectangle(menuPadding/2, menuPadding/2, Globals.windowBounds.Width - menuPadding, Globals.windowBounds.Height - menuPadding);
+        }
+
+        public bool IsTextboxActive()
+        {
+            if (!controls.Any(c => c.GetType() == typeof(Textbox)))
+                return false;
+            Textbox textbox = controls.First(c=>c.GetType() == typeof(Textbox)) as Textbox;
+            return textbox.IsActive();
         }
 
         public void AddControl(Control control)

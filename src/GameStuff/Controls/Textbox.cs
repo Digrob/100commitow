@@ -1,4 +1,5 @@
-﻿using _100commitow.src.Inputs;
+﻿using _100commitow.src.GameStuff.View;
+using _100commitow.src.Inputs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -38,6 +39,13 @@ namespace _100commitow.src.GameStuff.Controls
             this.caretTexture = new Texture2D(Globals.graphicsDevice, 1, 1);
             this.caretTexture.SetData(new Color[] { Color.White });
             this.newlineIndicies = new List<int>();
+            if (Globals.weaponCode != null)
+                this.text = Globals.weaponCode;
+        }
+
+        public bool IsActive()
+        {
+            return active;
         }
 
         private void KeepCaretActive()
@@ -137,6 +145,12 @@ namespace _100commitow.src.GameStuff.Controls
                     {
                         if (key.ToString().Length == 1)
                         {
+                            if (Keyboard.GetState().IsKeyDown(Keys.LeftControl) && key.ToString() == "S")
+                            {
+                                Globals.weaponCode = text;
+                                active = false;
+                                return;
+                            }
                             if (IsTextTooLong(text + key.ToString()))
                             {
                                 text += "\n";

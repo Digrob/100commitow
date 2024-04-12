@@ -107,7 +107,7 @@ namespace src.GameStuff.Places
                     else if (entity is Player && another_entity is Tile && (another_entity as Tile).type == Tiles.Barrel)
                     {
                         float distance = Vector2.Distance(entity.position, another_entity.position);
-                        if (distance <= 40f && KeyboardManager.Pressed(Keys.E))
+                        if (distance <= 40f && KeyboardManager.Pressed(Keys.E, HUD.GetUI() == null ? false : !HUD.GetUI().IsTextboxActive()))
                         {
                             if (HUD.IsUINull())
                                 HUD.queuedUI = new UIWeaponSelection();
