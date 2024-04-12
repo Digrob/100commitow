@@ -1,4 +1,5 @@
 ﻿using _100commitow.src.GameStuff.GameStates;
+using _100commitow.src.GameStuff.View;
 using _100commitow.src.Inputs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -95,7 +96,7 @@ namespace src.GameStuff.GameStates
                 {
                     _states.Peek().Update(gameTime);
                     //When the ESC key is pressed, the game states will be switched between the game, and the pause menu
-                    if (KeyboardManager.Down(Keys.Escape) && !stopFromSwitching)
+                    if (HUD.IsUINull() && KeyboardManager.Down(Keys.Escape) && !stopFromSwitching)
                     {
                         if(_states.Peek() is MainGameState)
                             Instance.AddScreen(Globals.gameStates[1]);

@@ -22,9 +22,9 @@ namespace _100commitow.src.GameStuff.Controls
         private Vector2 caretPosition;
         private float caretTimer;
         private bool showCaret;
-        private List<string> lines;
         private Texture2D caretTexture;
         private bool active;
+        private List<int> newlineIndicies;
         public Textbox(Rectangle rect)
         {
             this.texture = new Texture2D(Globals.graphicsDevice, 1, 1);
@@ -37,7 +37,7 @@ namespace _100commitow.src.GameStuff.Controls
             this.caretPosition = new Vector2(0, 0);
             this.caretTexture = new Texture2D(Globals.graphicsDevice, 1, 1);
             this.caretTexture.SetData(new Color[] { Color.White });
-            this.lines = new List<string>();
+            this.newlineIndicies = new List<int>();
         }
 
         private void KeepCaretActive()
@@ -75,10 +75,24 @@ namespace _100commitow.src.GameStuff.Controls
                 active = MouseManager.InsideARect(rect);
         }
 
+        private void RemoveLastBit()
+        {
+            if(text.Split(' ').Count() == 1)
+            {
+                text = "";
+                return;
+            }
+            string last_bit = text.Split(' ').Last();
+            int index = text.LastIndexOf(' ');
+            text = text.Substring(0, index);
+        }
+
         public override void Update()
         {
             ActivateCheck();
+            KeyboardManager.Unlock();
             if (!active) return;
+            KeyboardManager.Lock();
             KeyboardState state = Keyboard.GetState();
             Keys[] pressedKeys = state.GetPressedKeys();
 
@@ -87,30 +101,59 @@ namespace _100commitow.src.GameStuff.Controls
                 if (!lastPressedKeys.Contains(key))
                 {
                     KeepCaretActive();
+                    if (key == Keys.Enter)
+                    {
+                        text += "\n";
+                    }
                     if (key == Keys.Back && text.Length > 0)
                     {
-                        if (text.EndsWith("\n"))
+                        if(Keyboard.GetState().IsKeyDown(Keys.LeftControl))
+                        {
+                            RemoveLastBit();
+                        }
+                        else if (text.EndsWith("\n") && newlineIndicies.Contains(text.Length))
+                        {
+                            newlineIndicies.Remove(text.Length);
                             text = text.Substring(0, text.Length - 2);
+                        }
                         else
                             text = text.Substring(0, text.Length - 1);
                     }
                     else if (key == Keys.Space)
                     {
                         if (IsTextTooLong(text + " "))
+                        {
                             text += "\n";
+                            newlineIndicies.Add(text.Length);
+                        }
                         text += " ";
+                    }
+                    else if(key == Keys.Escape)
+                    {
+                        active = false;
+                        return;
                     }
                     else
                     {
                         if (key.ToString().Length == 1)
                         {
                             if (IsTextTooLong(text + key.ToString()))
+                            {
                                 text += "\n";
-                            text += key.ToString();
+                                newlineIndicies.Add(text.Length);
+                            }
+                            if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
+                                text += key.ToString();
+                            else
+                                text += key.ToString().ToLower();
                         }
                     }
                 }
             }
+            if (Textures.font.LineSpacing * (CountNewlines(text)+1) > rect.Height)
+                rect.Height = Textures.font.LineSpacing * (CountNewlines(text)+1) + 5;
+            else if(Textures.font.LineSpacing * (CountNewlines(text) + 1) < rect.Height)
+                rect.Height = Textures.font.LineSpacing * (CountNewlines(text) + 1) + 5;
             caretPosition.X = rect.X + Textures.font.MeasureString(text.Substring(LastNewlineIndex(text))).X + Textures.font.MeasureString(" ").X;
             //5 is the spacing between textbox bounds and the text
             caretPosition.Y = rect.Y - Textures.font.LineSpacing + 5 + (Textures.font.LineSpacing * CountNewlines(text));
@@ -126,7 +169,6 @@ namespace _100commitow.src.GameStuff.Controls
 
         private void DrawCaret(Vector2 pos)
         {
-            var scale = new Vector2(1, 2);
             Globals.spriteBatch.Draw(caretTexture, new Rectangle((int)pos.X, (int)pos.Y, (int)Textures.font.MeasureString(" ").X, Textures.font.LineSpacing), null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 1f);
         }
 

@@ -66,26 +66,26 @@ namespace src.GameStuff.LivingStuff
         }
         private void Move()
         {
-            if(Keyboard.GetState().IsKeyDown(Keys.R))
+            if(KeyboardManager.Pressed(Keys.R))
             {
                 health = 100;
             }
-            if (!cancelMovementX && Keyboard.GetState().IsKeyDown(Keys.A))
+            if (!cancelMovementX && KeyboardManager.Down(Keys.A))
             {
                 velocity.X = -speed;
                 spriteEffect = SpriteEffects.FlipHorizontally;
             }
-            else if (!cancelMovementX && Keyboard.GetState().IsKeyDown(Keys.D))
+            else if (!cancelMovementX && KeyboardManager.Down(Keys.D))
             {
                 velocity.X = speed;
                 spriteEffect = SpriteEffects.None;
             }
 
-            if (!cancelMovementY && Keyboard.GetState().IsKeyDown(Keys.W))
+            if (!cancelMovementY && KeyboardManager.Down(Keys.W))
             {
                 velocity.Y = -speed;
             }
-            else if (!cancelMovementY && Keyboard.GetState().IsKeyDown(Keys.S))
+            else if (!cancelMovementY && KeyboardManager.Down(Keys.S))
             {
                 velocity.Y = speed;
             }
