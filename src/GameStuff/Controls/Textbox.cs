@@ -48,6 +48,7 @@ namespace _100commitow.src.GameStuff.Controls
             return active;
         }
 
+        //Keeps caret active when user presses anything
         private void KeepCaretActive()
         {
             showCaret = true;
